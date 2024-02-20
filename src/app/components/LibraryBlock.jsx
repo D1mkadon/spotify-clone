@@ -7,7 +7,7 @@ const LibraryBlock = ({ title, description, buttonText }) => {
         <h2 className="h-[22px] font-bold">{title}</h2>
         <p className="text-[14px] h-5 ">{description}</p>
       </div>
-      <a href="/" className="flex box-border">
+      <a href="/" className="flex box-border hover:scale-[1.05]">
         <span className="bg-white text-black rounded-full text-[13px] py-1 px-4 h-8 flex justify-center items-center font-bold">
           {buttonText}
         </span>

@@ -1,82 +1,41 @@
-import Image from "next/image";
 import React from "react";
-import LibraryBlock from "./components/LibraryBlock";
-import { LibraryData } from "./data/libraryData";
-import plusI from "../../public/plus.svg";
-import PlusIcon from "../../public/plus";
 
+import LeftBlock from "./components/LeftBlock";
+import BottomBlock from "./components/BottomBlock";
 const Home = () => {
   return (
     <div className="block">
-      <nav className="h-full leftSideBlock">
-        <div>
-          <div className="flex">
-            <a href="/" className=" h-[24px] mt-[20px] px-[24px]">
-              <Image
-                src={"/spotify.svg"}
-                alt="spotify Logo"
-                width={78}
-                height={24}
-              />
-            </a>
+      <LeftBlock />
+
+      <div className=" rightSideBlock flex flex-col relative">
+        <header className="h-16 flex absolute w-full items-center gap-2 justify-between p-4 z-[1]">
+          <div className="flex gap-2">
+            <button> leftArrow </button>
+            <button> rightArrow</button>
           </div>
-          <ul className="py-[8px] px-[12px]">
-            <li className="h-[48px] py-[4px] px-[12px]">
-              <a href="/" className="flex gap-[20px] h-[40px] items-center">
-                <Image
-                  src={"/home.svg"}
-                  alt="spotify Logo"
-                  width={24}
-                  height={24}
-                />
-                <span>Home</span>
-              </a>
-            </li>
-            <li className="h-[48px] py-[4px] px-[12px]">
-              <a href="/" className="flex gap-[20px] h-[40px] items-center">
-                <Image
-                  src={"search.svg"}
-                  alt="spotify Logo"
-                  width={24}
-                  height={24}
-                />
-                <span>Search</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div>
           <div>
-            <div className="flex justify-between py-2 px-4 items-center">
-              <div>
-                <button className="flex items-center gap-[12px] h-10 py-1 px-2 libraryLink">
-                  <Image
-                    src={"/library.svg"}
-                    alt="spotify Logo"
-                    width={24}
-                    height={24}
-                    style={{ color: "#fff" }}
-                  />
-                  <span className="text-[#A7A7A7]">Your Library</span>
-                </button>
-              </div>
-              <PlusIcon className="text-[#9BA2AE] hover:text-white plusIcon rounded-full cursor-pointer transition-all ease-in-out p-2" />
-            </div>
-            <div className="flex flex-col gap-2 pt-0 px-2 pb-2">
-              {LibraryData.map((e, index) => (
-                <LibraryBlock
-                  key={index}
-                  title={e.title}
-                  description={e.description}
-                  buttonText={e.buttonText}
-                />
-              ))}
+            <div>
+              <button>Sign up</button>
+              <button>Log in</button>
             </div>
           </div>
-          <div>123</div>
-        </div>
-      </nav>
-      <div className="bg-blue-800 rightSideBlock">secondDiv</div>
+        </header>
+        <div className="bgMain"></div>
+        <div className="h-16"></div>
+        <main className="z-[1]">
+          <div>
+            <div className="px-6">
+              <div className="flex justify-between ">
+                <a href="/">Spotify Playlist</a>
+                <a>show all</a>
+              </div>
+            </div>
+            <div>Sleep</div>
+          </div>
+          <div></div>
+        </main>
+      </div>
+      <BottomBlock />
     </div>
   );
 };
