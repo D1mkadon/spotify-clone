@@ -15,6 +15,10 @@ body {
   --background-highlight: #1a1a1a;
   --background-elevated-base: #242424;
   --background-noise: url("../../public/bg.svg");
+  --column-count: 5;
+  --column-width: 196.6px;
+  --grid-gap: 24px;
+  --min-container-width: 372px;
 }
 .block {
   color: var(--text-color);
@@ -79,4 +83,18 @@ aside {
 header {
   backdrop-filter: blur(1px);
   background-color: --background-base;
+}
+.musicSection {
+  overflow: hidden;
+  display: grid;
+  grid-gap: var(--grid-gap);
+  grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
+  min-width: var(--min-container-width);
+  grid-auto-rows: 0;
+  grid-template-rows: 1fr;
+}
+@media (min-width: 1600px) {
+  :root {
+    --column-count: 7;
+  }
 }
