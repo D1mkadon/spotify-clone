@@ -2,32 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
+html,
+:root,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  height: 100%;
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+:root {
+  --panel-gap: 8px;
+  --text-color: #fff;
+  --background-base: #121212;
+}
+.block {
+  color: var(--text-color);
+  background-color: #000;
+  display: grid;
+  gap: var(--panel-gap);
+  grid-template-areas:
+    "left-sidebar main-view right-sidebar"
+    "now-playing-bar now-playing-bar now-playing-bar";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+  padding: var(--panel-gap);
+}
+.leftSideBlock {
+  width: 420px;
+  height: 100%;
+  grid-area: left-sidebar;
+  display: flex;
+  gap: var(--panel-gap);
+  flex-direction: column;
+}
+.rightSideBlock {
+  grid-area: main-view/main-view/main-view/right-sidebar;
+}
+.leftSideBlock > div:first-child,
+.leftSideBlock > div:nth-child(2) {
+  border-radius: var(--panel-gap);
+  background: var(--background-base);
+  border: 0;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+.libraryLink {
+  min-block-size: 40px;
 }
