@@ -11,6 +11,7 @@ body {
   --panel-gap: 8px;
   --text-color: #fff;
   --background-base: #121212;
+  --background-highlight: #1a1a1a;
 }
 .block {
   color: var(--text-color);
@@ -50,4 +51,11 @@ body {
 }
 .libraryLink {
   min-block-size: 40px;
+}
+.sss:hover {
+  background-color: var(--background-highlight);
+  color: #fff;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  
 }

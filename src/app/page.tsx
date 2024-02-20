@@ -55,7 +55,13 @@ const Home = () => {
                   <span className="text-[#A7A7A7]">Your Library</span>
                 </button>
               </div>
-              <span className="text-xl">+</span>
+              <Image
+                className="p-2 sss rounded-full cursor-pointer"
+                src={"/plus.svg"}
+                alt="spotify Logo"
+                width={32}
+                height={32}
+              />
             </div>
             <div></div>
           </div>
