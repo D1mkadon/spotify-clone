@@ -84,6 +84,12 @@ header {
   backdrop-filter: blur(1px);
   background-color: --background-base;
 }
+
+.MusicContainer {
+  @apply flex px-6;
+  flex-flow: row wrap;
+  flex: 1 1 auto;
+}
 .musicSection {
   overflow: hidden;
   display: grid;
@@ -93,7 +99,34 @@ header {
   grid-auto-rows: 0;
   grid-template-rows: 1fr;
 }
-@media (min-width: 1600px) {
+@media (min-width: 768px) {
+  :root {
+    --column-count: 2;
+  }
+}
+@media (min-width: 975px) {
+  :root {
+    --column-count: 3;
+  }
+}
+@media (min-width: 1175px) {
+  :root {
+    --column-count: 4;
+  }
+}
+
+@media (min-width: 1475px) {
+  :root {
+    --column-count: 5;
+  }
+}
+@media (min-width: 1675px) {
+  :root {
+    --column-count: 6;
+  }
+}
+
+@media (min-width: 1800px) {
   :root {
     --column-count: 7;
   }

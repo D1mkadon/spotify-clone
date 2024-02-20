@@ -9,33 +9,41 @@ const Home = () => {
     <div className="block">
       <LeftBlock />
 
-      <div className=" rightSideBlock flex flex-col relative">
-        <header className="h-16 flex absolute w-full items-center gap-2 justify-between p-4 z-[1]">
+      <div className=" rightSideBlock flex flex-col relative ">
+        <header className="h-16 flex absolute w-full items-center gap-2 justify-between p-4 z-[1] bg-[rgba(0,0,0,.5);]">
           <div className="flex gap-2">
             <button> leftArrow </button>
             <button> rightArrow</button>
           </div>
           <div>
-            <div>
-              <button>Sign up</button>
-              <button>Log in</button>
+            <div className="flex">
+              <button className="p-2 pr-8">Sign up</button>
+              <button className="flex box-border hover:scale-[1.05]">
+                <span className="bg-white text-black rounded-full text-[13px] py-2 px-8 flex justify-center items-center font-bold relative h-12 text-base">
+                  Log in
+                </span>
+              </button>
             </div>
           </div>
         </header>
         <div className="bgMain"></div>
         <div className="h-16"></div>
-        <main className="z-[1]">
-          <section>
-            <section className="px-6">
-              <div className="flex justify-between ">
-                <a href="/">Spotify Playlist</a>
-                <a>show all</a>
-              </div>
-              <div className="musicSection ">
+        <main className="z-[1] pt-2">
+          <section className="MusicContainer">
+            <div className="flex justify-between items-center w-full px-4 h-[30px]">
+              <a href="/" className="hover:underline font-extrabold">
+                Spotify Playlist
+              </a>
+              <a href="/" className="hover:underline text-[#B3b3b3]">
+                show all
+              </a>
+            </div>
+            <section className="">
+              <div className="musicSection">
                 {cardsData.map((e, index) => (
                   <div
                     key={index}
-                    className="p-4 rounded-lg relative bg-[#181818]"
+                    className="p-4 rounded-lg relative bg-[#181818] cursor-pointer hover:bg-[#282828] transition-all duration-[0.3] ease-in-out"
                   >
                     <div className="pb-[100%] relative mb-4">
                       <Image
