@@ -1,5 +1,9 @@
 import Image from "next/image";
 import React from "react";
+import LibraryBlock from "./components/LibraryBlock";
+import { LibraryData } from "./data/libraryData";
+import plusI from "../../public/plus.svg";
+import PlusIcon from "../../public/plus";
 
 const Home = () => {
   return (
@@ -51,21 +55,25 @@ const Home = () => {
                     alt="spotify Logo"
                     width={24}
                     height={24}
+                    style={{ color: "#fff" }}
                   />
                   <span className="text-[#A7A7A7]">Your Library</span>
                 </button>
               </div>
-              <Image
-                className="p-2 sss rounded-full cursor-pointer"
-                src={"/plus.svg"}
-                alt="spotify Logo"
-                width={32}
-                height={32}
-              />
+              <PlusIcon className="text-[#9BA2AE] hover:text-white plusIcon rounded-full cursor-pointer transition-all ease-in-out p-2" />
             </div>
-            <div></div>
+            <div className="flex flex-col gap-2 pt-0 px-2 pb-2">
+              {LibraryData.map((e, index) => (
+                <LibraryBlock
+                  key={index}
+                  title={e.title}
+                  description={e.description}
+                  buttonText={e.buttonText}
+                />
+              ))}
+            </div>
           </div>
-          <div></div>
+          <div>123</div>
         </div>
       </nav>
       <div className="bg-blue-800 rightSideBlock">secondDiv</div>

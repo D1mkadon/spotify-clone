@@ -12,17 +12,15 @@ body {
   --text-color: #fff;
   --background-base: #121212;
   --background-highlight: #1a1a1a;
+  --background-elevated-base: #242424;
 }
 .block {
   color: var(--text-color);
   background-color: #000;
   display: grid;
   gap: var(--panel-gap);
-  grid-template-areas:
-    "left-sidebar main-view right-sidebar"
-    "now-playing-bar now-playing-bar now-playing-bar";
-  grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;
+  @apply grid-cols-1 md:grid-cols-[auto_1fr];
   height: 100%;
   min-height: 100%;
   position: relative;
@@ -30,16 +28,12 @@ body {
   padding: var(--panel-gap);
 }
 .leftSideBlock {
-  width: 420px;
+  @apply md:w-[360px] hidden md:flex xl:w-[420px];
   height: 100%;
-  grid-area: left-sidebar;
-  display: flex;
   gap: var(--panel-gap);
   flex-direction: column;
 }
-.rightSideBlock {
-  grid-area: main-view/main-view/main-view/right-sidebar;
-}
+
 .leftSideBlock > div:first-child,
 .leftSideBlock > div:nth-child(2) {
   border-radius: var(--panel-gap);
@@ -52,10 +46,14 @@ body {
 .libraryLink {
   min-block-size: 40px;
 }
-.sss:hover {
+.plusIcon:hover {
   background-color: var(--background-highlight);
-  color: #fff;
   -webkit-transform: scale(1);
   transform: scale(1);
-  
+}
+aside {
+  background-color: var(--background-elevated-base);
+}
+.rightSideBlock {
+  background: var(--background-base);
 }
