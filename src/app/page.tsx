@@ -1,6 +1,8 @@
 import React from "react";
 
 import LeftBlock from "./components/LeftBlock";
+import LeftArrow from "./data/leftArrow";
+import RightArrow from "./data/rightArrow";
 import BottomBlock from "./components/BottomBlock";
 import Image from "next/image";
 import { cardsData } from "./data/cardsData";
@@ -11,10 +13,20 @@ const Home = () => {
       <LeftBlock />
 
       <div className=" rightSideBlock flex flex-col relative ">
-        <header className="h-16 flex absolute w-full items-center gap-2 justify-between p-4 z-[1] bg-[rgba(0,0,0,.5);]">
+        <header className="h-16 flex absolute w-full items-center gap-2 justify-between py-4 px-6 z-[1] bg-[rgba(0,0,0,.5);] ">
           <div className="flex gap-2">
-            <button> leftArrow </button>
-            <button> rightArrow</button>
+            <button
+              disabled
+              className="bg-black/[0.7] flex justify-center items-center w-8 h-8 rounded-full"
+            >
+              <LeftArrow className={"text-[#7a7a7a]"} />
+            </button>
+            <button
+              disabled
+              className="bg-black/[0.7] flex justify-center items-center w-8 h-8 rounded-full"
+            >
+              <RightArrow className={"text-[#7a7a7a]"} />
+            </button>
           </div>
           <div>
             <div className="flex">
