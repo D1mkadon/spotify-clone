@@ -93,11 +93,23 @@ header {
 .musicSection {
   overflow: hidden;
   display: grid;
-  grid-gap: var(--grid-gap);
+  grid-column-gap: var(--grid-gap);
   grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
   min-width: var(--min-container-width);
   grid-auto-rows: 0;
   grid-template-rows: 1fr;
+  margin-bottom: 16px;
+}
+
+.MusicCardDescription {
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  @apply text-[#a7a7a7] text-[13px] max-w-full;
 }
 @media (min-width: 768px) {
   :root {
