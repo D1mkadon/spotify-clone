@@ -4,6 +4,7 @@ import LeftBlock from "./components/LeftBlock";
 import BottomBlock from "./components/BottomBlock";
 import Image from "next/image";
 import { cardsData } from "./data/cardsData";
+import { RightFooterLinks } from "./data/RightFooterLinks";
 const Home = () => {
   return (
     <div className="block">
@@ -69,7 +70,31 @@ const Home = () => {
               <div>Sleep</div>
             </section>
           </section>
-          <section>footer</section>
+          <section className="pb-[40px] px-8 pt-2 w-full box-border">
+            <div className="mt-8 flex justify-between flex-row">
+              <div className="flex-[1_1_50%] flex flex-row text-[15px]">
+                {RightFooterLinks.map((e, index) => (
+                  <ul
+                    key={index}
+                    className="mr-6 mb-8 flex flex-col justify-start items-start md:w-[183px]"
+                  >
+                    <p className="font-bold">{e.title}</p>
+                    {e.links.map((e, index) => (
+                      <li key={index} className="mt-2  text-[#A7A7A7] ">
+                        <span className="pb-2"> {e.LinkName}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ))}
+              </div>
+              <div>
+                <a href="/">Inst</a>
+                <a href="/">Inst</a>
+                <a href="/">Inst</a>
+              </div>
+            </div>
+            footer
+          </section>
         </main>
       </div>
       <BottomBlock />
