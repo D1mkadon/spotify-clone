@@ -1,4 +1,7 @@
-export default function PlusIcon({ className }) {
+export interface iconProps {
+  className: string;
+}
+export default function PlusIcon({ className }: iconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

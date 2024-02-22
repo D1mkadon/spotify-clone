@@ -1,4 +1,6 @@
-export default function RightArrow({ className }) {
+import { iconProps } from "./plus";
+
+export default function RightArrow({ className }: iconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
