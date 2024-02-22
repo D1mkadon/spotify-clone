@@ -18,12 +18,12 @@ const Profile = ({ code }) => {
     axios
       .get("https://api.spotify.com/v1/me", {
         headers: {
-          Authorization: "Bearer " + accessToken,
+          Authorization: `Bearer ${accessToken}`,
         },
       })
       .then((e) => console.log("user info call", e))
       .catch((e) => console.log("user info error", e));
-  }, []);
+  }, [accessToken]);
   return <div>profile name</div>;
 };
 
