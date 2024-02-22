@@ -1,11 +1,9 @@
 "use client";
 import LeftArrow from "../data/leftArrow";
 import RightArrow from "../data/rightArrow";
-import Profile from "./Profile";
 import Image from "next/image";
 import { cardsData } from "../data/cardsData";
 import { RightFooterLinks } from "../data/RightFooterLinks";
-import { useEffect, useState } from "react";
 import Login from "../data/Login";
 
 const RightBlock = () => {

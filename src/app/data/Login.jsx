@@ -1,20 +1,42 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import Profile from "../components/Profile";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import Profile from "../components/Profile";
 
 const Login = () => {
   const [code, setCode] = useState();
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState();
   useEffect(() => {
+    setLoading(true);
     setCode(new URLSearchParams(window.location.search).get("code"));
+    window.history.pushState({}, null, "/");
   }, []);
-  const { data: session } = useSession();
-  console.log(session);
+
+  useEffect(() => {
+    if (!code) return;
+    console.log("code", code);
+    axios
+      .get("https://api.spotify.com/v1/me", {
+        headers: `Authorization: Bearer ${code}`,
+      })
+      .then((e) => {
+        setLoading(true), setData(e.data);
+      });
+  }, [code]);
+
   if (code) {
     return (
       <>
-        {code}
-        <br />
-        <button onClick={() => signOut()}>sign out</button>
+        {loading ? (
+          <p>loading...</p>
+        ) : (
+          <>
+            <Profile data={data}></Profile>
+            <br />
+            <button onClick={() => signOut()}>sign out</button>
+          </>
+        )}
       </>
     );
   }
