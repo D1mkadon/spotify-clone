@@ -5,25 +5,25 @@ import SpotifyProvider from "next-auth/providers/spotify";
 const SPOTIFY_CLIENT_SECRET = "8ee886316a3c45c5b43a58ba10fe681a";
 const JWT_SECRET = "70c490dc529d06e16a176eebd03a9073";
 const CLIENT_ID = "661c1a86ac4644139d3e940a5dab6048";
-const Redirect_URI = "http://localhost:3000";
-const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${Redirect_URI}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`;
+const REDIRECT_URI = "http://localhost:3000";
+const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`;
 const scopes = [
-  "streaming%20",
-  "user-read-email%20",
-  "user-read-private%20",
-  "playlist-read-private%20",
-  "playlist-read-collaborative%20",
-  "user-read-currently-playing%20",
-  "user-read-playback-state%20",
-  "user-modify-playback-state%20",
-  "user-library-read%20",
-  "user-library-modify%20",
+  "streaming",
+  "user-read-email",
+  "user-read-private",
+  "playlist-read-private",
+  "playlist-read-collaborative",
+  "user-read-currently-playing",
+  "user-read-playback-state",
+  "user-modify-playback-state",
+  "user-library-read",
+  "user-library-modify",
 ].join(",");
 
 const params = {
   client_id: CLIENT_ID,
   response_type: "code",
-  redirect_uri: "http://localhost:3000",
+  redirect_uri: REDIRECT_URI,
   scope: scopes,
 };
 
@@ -63,11 +63,14 @@ export const authOptions = {
     SpotifyProvider({
       clientId: CLIENT_ID,
       clientSecret: SPOTIFY_CLIENT_SECRET,
-      authorization: AUTH_URL,
+      authorization: LOGIN_URL,
     }),
     // ...add more providers here
   ],
   secret: JWT_SECRET,
+  pages: {
+    signIn: "/",
+  },
   callbacks: {
     async jwt({ token, account }) {
       // Persist the OAuth access_token to the token right after signin
@@ -91,4 +94,6 @@ export const authOptions = {
     },
   },
 };
-export default NextAuth(authOptions);
+export const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
