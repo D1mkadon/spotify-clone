@@ -31,18 +31,7 @@ const RightBlock = () => {
           </button>
         </div>
         <div>
-          <div className="flex">
-            {code ? (
-              <Profile code={code} />
-            ) : (
-              <>
-                <button className="p-2 pr-8">Sign up</button>
-                <button className="flex box-border hover:scale-[1.05]">
-                  <Login />
-                </button>
-              </>
-            )}
-          </div>
+          <Login code={code} />
         </div>
       </header>
       <div className="bgMain"></div>

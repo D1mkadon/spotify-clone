@@ -1,17 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../data/useAuth";
 import axios from "axios";
-import SpotifyWebApi from "spotify-web-api-node";
-const spotifyApi = new SpotifyWebApi({
-  clientId: "8b945ef10ea24755b83ac50cede405a0",
-});
+
 const Profile = ({ code }) => {
   const accessToken = useAuth(code);
-  useEffect(() => {
-    if (!accessToken) return;
-    spotifyApi.setAccessToken(accessToken);
-  }, [accessToken]);
-
+  const [profile, setProfile] = useState();
   useEffect(() => {
     if (!accessToken) return;
     console.log(accessToken);
@@ -21,10 +14,12 @@ const Profile = ({ code }) => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then((e) => console.log("user info call", e))
+      .then((e) => {
+        console.log("user info call", e.data), setProfile(e.data);
+      })
       .catch((e) => console.log("user info error", e));
   }, [accessToken]);
-  return <div>profile name</div>;
+  return <div>{profile ? <p>{profile.display_name}</p> : null}</div>;
 };
 
 export default Profile;
