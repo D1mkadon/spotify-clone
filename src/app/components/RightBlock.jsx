@@ -6,11 +6,13 @@ import Profile from "./Profile";
 import Image from "next/image";
 import { cardsData } from "../data/cardsData";
 import { RightFooterLinks } from "../data/RightFooterLinks";
+import { useEffect, useState } from "react";
 
-const code = new URLSearchParams(window.location.search).get("code");
 const RightBlock = () => {
-  if (typeof window !== "undefined") {
-  }
+  const [code, setCode] = useState();
+  useEffect(() => {
+    setCode(new URLSearchParams(window.location.search).get("code"));
+  }, []);
   return (
     <div className=" rightSideBlock flex flex-col relative ">
       <header className="h-16 flex absolute w-full items-center gap-2 justify-between py-4 px-6 z-[1] bg-[rgba(0,0,0,.5);] ">
