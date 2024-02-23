@@ -2,9 +2,6 @@ import NextAuth from "next-auth";
 
 import SpotifyProvider from "next-auth/providers/spotify";
 
-
-
-
 const scopes = [
   "streaming",
   "user-read-email",
@@ -44,9 +41,9 @@ async function refreshAccessToken(token) {
       "content-type": "application/x-www-form-urlencoded",
       Authorization:
         "Basic " +
-        new Buffer.from(process.env.CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET).toString(
-          "base64"
-        ),
+        new Buffer.from(
+          process.env.CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET
+        ).toString("base64"),
     },
     json: true,
   });
@@ -73,7 +70,7 @@ export const authOptions = {
 
   callbacks: {
     async jwt({ token, user, account }) {
-      console.log("jwt token", token);
+      // console.log("jwt token", token);
 
       // pass expires_at access_token refresh_token to token
       if (user && account) {
@@ -97,7 +94,6 @@ export const authOptions = {
         refresh_token: token.refresh_token,
       };
     },
-
   },
 };
 export const handler = NextAuth(authOptions);

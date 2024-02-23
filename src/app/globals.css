@@ -89,6 +89,7 @@ header {
   @apply flex px-6;
   flex-flow: row wrap;
   flex: 1 1 auto;
+  margin-top: 64px;
 }
 .musicSection {
   overflow: hidden;

@@ -6,7 +6,7 @@ import { cardsData } from "../data/cardsData";
 import { RightFooterLinks } from "../data/RightFooterLinks";
 import Login from "../data/Login";
 import { useEffect, useState } from "react";
-
+import MusicSection from "./MusicSection";
 const RightBlock = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
@@ -52,34 +52,7 @@ const RightBlock = () => {
               <span className="ml-2 mt-[2px] text-[13px]"> Show all</span>
             </a>
           </div>
-          <section className="">
-            <div className="musicSection">
-              {cardsData.map((e, index) => (
-                <div
-                  key={index}
-                  className="p-4 rounded-lg relative bg-[#181818] cursor-pointer hover:bg-[#282828] h-full w-full transition-all duration-[0.3] ease-in-out"
-                >
-                  <div className="pb-[100%] relative mb-4">
-                    <Image
-                      src={e.img}
-                      alt="/"
-                      fill
-                      className="w-full  h-full top-0 left-0 object-cover object-center"
-                    />
-                  </div>
-                  <div className="max-w-full min-h-[62px]">
-                    <p className="inline-block max-w-full pb-1 text-base font-bold overflow-hidden text-ellipsis whitespace-nowrap h-[26px]">
-                      {e.title}
-                    </p>
-                    <div className="MusicCardDescription">{e.description}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-          {/* <section>
-       <div>Sleep</div>
-     </section> */}
+          <MusicSection />
         </section>
         <section className="pb-[40px] px-8 pt-12 w-full box-border">
           <div className="mt-8 flex justify-between flex-row">
