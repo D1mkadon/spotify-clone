@@ -13,7 +13,7 @@ const Login = () => {
   useEffect(() => {
     setLoading(true);
     async function f() {
-      if (session && session.user.name) {
+      if (session && session?.user?.name) {
         setLoading(false);
       }
     }
@@ -22,7 +22,7 @@ const Login = () => {
   if (loading) {
     return <p>loading...</p>;
   }
-  if (session.user.name) {
+  if (session && session?.user?.name) {
     return <Profile user={session.user} />;
   }
   return (

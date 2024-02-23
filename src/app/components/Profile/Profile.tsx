@@ -21,11 +21,11 @@ const Profile = ({ user }: any) => {
           onClick={handleClickButton}
         >
           <span className="bg-[#19e68c] text-black h-6 w-6 rounded-full box-border">
-            {user.name.charAt(0)}
+            {user?.name.charAt(0)}
           </span>
         </button>
         <div className="user-hover-dropdown-content text-black">
-          <p>{user.name}</p>
+          <p>{user?.name}</p>
         </div>
         <div
           className={`user-dropdown-content  ${
