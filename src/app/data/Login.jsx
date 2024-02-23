@@ -8,7 +8,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const { data: session } = useSession();
-  console.log("use session hook", session);
+  // console.log("use session hook", session);
 
   useEffect(() => {
     async function f() {

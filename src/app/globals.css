@@ -116,7 +116,6 @@ header {
   display: inline-block;
 }
 .user-hover-dropdown-content {
-  /* display: none; */
   position: absolute;
   background-color: #282828;
   color: #fff;
@@ -128,9 +127,8 @@ header {
   opacity: 0;
   text-wrap: nowrap;
   padding: 2px 8px;
-
   pointer-events: none;
-
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.2);
   transition: opacity 150ms ease-in-out;
   transition-delay: 300ms;
 }
@@ -138,7 +136,6 @@ header {
   opacity: 1;
   pointer-events: auto;
 }
-
 .user-dropdown-content {
   position: absolute;
   text-wrap: nowrap;

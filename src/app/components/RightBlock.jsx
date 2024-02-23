@@ -5,28 +5,38 @@ import Image from "next/image";
 import { cardsData } from "../data/cardsData";
 import { RightFooterLinks } from "../data/RightFooterLinks";
 import Login from "../data/Login";
+import { useEffect, useState } from "react";
 
 const RightBlock = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    if (window.scrollY > 100) {
+      setIsScrolled(true);
+    }
+  }, []);
   return (
     <div className=" rightSideBlock flex flex-col relative ">
-      <header className="h-16 flex absolute w-full items-center gap-2 justify-between py-4 px-6 z-[2] bg-[rgba(0,0,0,.5);] ">
+      <header
+        className={`h-16 flex absolute w-full items-center gap-2 justify-between py-4 px-6 z-[2] ${
+          isScrolled ? "bg-[rgba(0,0,0,.5);]" : "bg-transparent"
+        }  `}
+      >
         <div className="flex gap-2">
           <button
             disabled
-            className="bg-black/[0.7] flex justify-center items-center w-8 h-8 rounded-full"
+            className="bg-black/[0.7] flex justify-center items-center w-8 h-8 rounded-full opacity-[0.6]"
           >
-            <LeftArrow className={"text-[#7a7a7a]"} />
+            <LeftArrow className={"text-[#fff]"} />
           </button>
           <button
             disabled
-            className="bg-black/[0.7] flex justify-center items-center w-8 h-8 rounded-full"
+            className="bg-black/[0.7] flex justify-center items-center w-8 h-8 rounded-full opacity-[0.6]"
           >
-            <RightArrow className={"text-[#7a7a7a]"} />
+            <RightArrow className={"text-[#fff]"} />
           </button>
         </div>
 
         <div className="flex items-center font-bold">
-         
           <Login />
         </div>
       </header>
