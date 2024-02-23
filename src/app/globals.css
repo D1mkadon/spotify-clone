@@ -34,7 +34,7 @@ body {
 }
 .leftSideBlock {
   @apply md:w-[420px] hidden md:flex w-[360px];
-  height: 100%;
+
   gap: var(--panel-gap);
   flex-direction: column;
 }

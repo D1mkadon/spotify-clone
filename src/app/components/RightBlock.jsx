@@ -2,7 +2,6 @@
 import LeftArrow from "../data/Icons/leftArrow";
 import RightArrow from "../data/Icons/rightArrow";
 import Image from "next/image";
-import { cardsData } from "../data/cardsData";
 import { RightFooterLinks } from "../data/RightFooterLinks";
 import Login from "../data/Login";
 import { useEffect, useState } from "react";
@@ -17,7 +16,7 @@ const RightBlock = () => {
   return (
     <div className=" rightSideBlock flex flex-col relative ">
       <header
-        className={`h-16 flex absolute w-full items-center gap-2 justify-between py-4 px-6 z-[2] ${
+        className={`h-16 flex w-full items-center gap-2 justify-between py-4 px-6 z-[2] ${
           isScrolled ? "bg-[rgba(0,0,0,.5);]" : "bg-transparent"
         }  `}
       >
@@ -42,7 +41,7 @@ const RightBlock = () => {
       </header>
       <div className="bgMain"></div>
       <div className="h-16"></div>
-      <main className="z-[1] flex flex-col">
+      <main className="z-[1] flex flex-col flex-[1] overflow-y-auto">
         <section className="MusicContainer font-bold">
           <div className="flex justify-between items-center w-full  h-[30px]">
             <a href="/" className="hover:underline text-[22px] pl-0">

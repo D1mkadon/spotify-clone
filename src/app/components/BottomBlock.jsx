@@ -2,7 +2,7 @@ const BottomBlock = () => {
   return (
     <a
       href="/"
-      className="col-span-2 flex justify-between items-center w-full flex-row z-[1] gap-6 pt-[11px] pr-[24px] pb-[7px] pl-[15px] bottomBlock "
+      className="col-span-2 sticky bottom-2 flex justify-between items-center w-full flex-row z-[1] gap-6 pt-[11px] pr-[24px] pb-[7px] pl-[15px] bottomBlock "
     >
       <div>
         <p className="font-bold text-[14px]">Preview of Spotify</p>

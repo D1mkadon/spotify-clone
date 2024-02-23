@@ -6,7 +6,7 @@ import { LeftFooterLinks } from "../data/LeftFooterLinks";
 
 const LeftBlock = () => {
   return (
-    <nav className="h-full leftSideBlock">
+    <nav className="leftSideBlock sticky top-2 h-[90vh] flex-[0_0_auto]">
       <div>
         <div className="flex">
           <a href="/" className=" h-[24px] mt-[20px] px-[24px]">
@@ -43,7 +43,7 @@ const LeftBlock = () => {
           </li>
         </ul>
       </div>
-      <div className="flex flex-col justify-between flex-1">
+      <div className="flex flex-col justify-between flex-[0_0_auto] h-[80%] ">
         <div>
           <div className="flex justify-between py-2 px-4 items-center">
             <div>
