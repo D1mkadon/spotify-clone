@@ -1,6 +1,6 @@
 "use client";
-import LeftArrow from "../data/leftArrow";
-import RightArrow from "../data/rightArrow";
+import LeftArrow from "../data/Icons/leftArrow";
+import RightArrow from "../data/Icons/rightArrow";
 import Image from "next/image";
 import { cardsData } from "../data/cardsData";
 import { RightFooterLinks } from "../data/RightFooterLinks";
@@ -9,7 +9,7 @@ import Login from "../data/Login";
 const RightBlock = () => {
   return (
     <div className=" rightSideBlock flex flex-col relative ">
-      <header className="h-16 flex absolute w-full items-center gap-2 justify-between py-4 px-6 z-[1] bg-[rgba(0,0,0,.5);] ">
+      <header className="h-16 flex absolute w-full items-center gap-2 justify-between py-4 px-6 z-[2] bg-[rgba(0,0,0,.5);] ">
         <div className="flex gap-2">
           <button
             disabled
@@ -30,7 +30,7 @@ const RightBlock = () => {
       </header>
       <div className="bgMain"></div>
       <div className="h-16"></div>
-      <main className="z-[1] ">
+      <main className="z-[1] flex flex-col">
         <section className="MusicContainer font-bold">
           <div className="flex justify-between items-center w-full  h-[30px]">
             <a href="/" className="hover:underline text-[22px] pl-0">

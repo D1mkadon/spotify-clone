@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PlusIcon from "../data/plus";
+import PlusIcon from "../data/Icons/plus";
 import LibraryBlock from "./LibraryBlock";
 import { LibraryData } from "../data/libraryData";
 import { LeftFooterLinks } from "../data/LeftFooterLinks";
