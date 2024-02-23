@@ -22,9 +22,6 @@ const scopes = [
 ].join(",");
 
 const params = {
-  client_id: CLIENT_ID,
-  response_type: "code",
-  redirect_uri: REDIRECT_URI,
   scope: scopes,
 };
 
@@ -37,24 +34,31 @@ async function refreshAccessToken(token) {
   console.log("refresh token log", token.accessToken);
   const params = new URLSearchParams();
   params.append("grant_type", "authorization_code");
-  params.append("redirect_uri", `${Redirect_URI}`);
+  params.append("redirect_uri", `${REDIRECT_URI}`);
   params.append("code", `${token.accessToken}`);
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
+    form: {
+      grant_type: "authorization_code",
+      // code: code,
+      redirect_uri: REDIRECT_URI,
+    },
     headers: {
+      "content-type": "application/x-www-form-urlencoded",
       Authorization:
         "Basic " +
         new Buffer.from(CLIENT_ID + ":" + SPOTIFY_CLIENT_SECRET).toString(
           "base64"
         ),
     },
-    body: params,
+    json: true,
   });
   const data = await response.json();
   return {
+    ...token,
     accessToken: data.access_token,
     refreshToken: data.refresh_token ?? token.refreshToken,
-    accessTokenExpires: Date.now() + data.expires_at * 1000,
+    accessTokenExpires: Date.now() + data.expires_in * 1000,
   };
 }
 
@@ -64,35 +68,71 @@ export const authOptions = {
     SpotifyProvider({
       clientId: CLIENT_ID,
       clientSecret: SPOTIFY_CLIENT_SECRET,
-      authorization: LOGIN_URL,
+      // authorization: LOGIN_URL,
     }),
     // ...add more providers here
   ],
-  secret: JWT_SECRET,
-  pages: {
-    signIn: "/",
-  },
+  secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
-    async jwt({ token, account }) {
-      // Persist the OAuth access_token to the token right after signin
-      if (account) {
-        token.accessToken = account.access_token;
-        token.refreshToken = account.refresh_token;
-        token.accessTokenExpires = account.expires_at;
-        return token;
+    async jwt({ token, user, account }) {
+      console.log("jwt token", token);
+
+      // pass expires_at access_token refresh_token to token
+      if (user && account) {
+        return {
+          ...token,
+          id: user.id,
+          expires_at: account.expires_at * 1000,
+          access_token: account.access_token,
+          refresh_token: account.refresh_token,
+        };
       }
-      // access token has not expired
-      if (Date.now() < token.accessTokenExpires * 1000) {
-        return token;
-      }
-      // access token expired
-      return refreshAccessToken(token);
+      return token;
     },
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.accessToken = token.accessToken;
-      return session;
+    async session({ session, user, token, account }) {
+      // console.log("session callback", { session, token, user });
+      return {
+        ...session,
+        expires_at: token.expires_at,
+        id: token.id,
+        access_token: token.access_token,
+        refresh_token: token.refresh_token,
+      };
+
+      // session.account.access_token = account.access_token;
+      // session.account.expires_at = account.expires_at;
+      // session.account.refresh_token = account.refresh_token;
     },
+    // async jwt({ token, account, user }) {
+    //   console.log("jwt token", token);
+    //   console.log("jwt account", account);
+    //   console.log("jwt user", user);
+    //   if (account && user) {
+    //     return {
+    //       ...token,
+    //       accessToken: account.access_token,
+    //       refreshToken: account.refresh_token,
+    //       username: account.providerAccountId,
+    //       accessTokenExpires: account.expires_at * 1000,
+    //     };
+    //   }
+
+    //   if (Date.now() < token.accessTokenExpires) {
+    //     console.log("token is valid");
+    //     return token;
+    //   }
+
+    //   console.log("token is expired, refreshing");
+    //   return await refreshAccessToken(token);
+    // },
+    // async session({ session, token }) {
+    //   session.user.accessToken = token.accessToken;
+    //   session.user.refreshToken = token.refreshToken;
+    //   session.user.username = token.username;
+
+    //   return session;
+    // },
   },
 };
 export const handler = NextAuth(authOptions);
