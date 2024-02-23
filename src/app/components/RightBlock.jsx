@@ -24,7 +24,9 @@ const RightBlock = () => {
             <RightArrow className={"text-[#7a7a7a]"} />
           </button>
         </div>
-        <div>
+
+        <div className="flex items-center font-bold">
+         
           <Login />
         </div>
       </header>

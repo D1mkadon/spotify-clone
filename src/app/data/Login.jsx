@@ -11,7 +11,6 @@ const Login = () => {
   console.log("use session hook", session);
 
   useEffect(() => {
-    setLoading(true);
     async function f() {
       if (session && session?.user?.name) {
         setLoading(false);
@@ -19,6 +18,7 @@ const Login = () => {
     }
     f();
   }, [session]);
+
   if (loading) {
     return <p>loading...</p>;
   }
@@ -28,6 +28,7 @@ const Login = () => {
   return (
     <div className="flex">
       <>
+        <button className="p-2 pr-8 text-[#A7A7A7]">Sign up</button>
         <button
           className="flex box-border hover:scale-[1.05]"
           onClick={() => signIn("spotify", { callbackUrl: "/" })}

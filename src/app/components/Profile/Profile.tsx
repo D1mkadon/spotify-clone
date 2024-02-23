@@ -3,6 +3,7 @@
 // }
 import { useState } from "react";
 import { dropDownData } from "./dropDownData";
+import { signOut } from "next-auth/react";
 
 const Profile = ({ user }: any) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -43,7 +44,10 @@ const Profile = ({ user }: any) => {
               {e.icon}
             </a>
           ))}
-          <button className="p-3 pr-2  text-white box-border hover:bg-[hsla(0,0%,100%,.1)] cursor-pointer flex justify-between gap-3 border-t border-t-[hsla(0,0%,100%,.1)]">
+          <button
+            onClick={() => signOut()}
+            className="p-3 pr-2  text-white box-border hover:bg-[hsla(0,0%,100%,.1)] cursor-pointer flex justify-between gap-3 border-t border-t-[hsla(0,0%,100%,.1)]"
+          >
             <span>Log out</span>
           </button>
         </div>
