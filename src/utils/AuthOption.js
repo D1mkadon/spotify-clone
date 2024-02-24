@@ -24,7 +24,6 @@ const LOGIN_URL =
   new URLSearchParams(params).toString();
 
 async function refreshAccessToken(token) {
-  // refresh access token
   console.log("refresh token log", token.accessToken);
   const params = new URLSearchParams();
   params.append("grant_type", "authorization_code");
@@ -62,7 +61,7 @@ export const authOptions = {
     SpotifyProvider({
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-      // authorization: LOGIN_URL,
+      authorization: LOGIN_URL,
     }),
     // ...add more providers here
   ],
@@ -82,7 +81,10 @@ export const authOptions = {
           refresh_token: account.refresh_token,
         };
       }
-      return token;
+      if (Date.now() < token.expires_at) {
+        return token;
+      }
+      return refreshAccessToken(token);
     },
     async session({ session, user, token, account }) {
       // console.log("session callback", { session, token, user });

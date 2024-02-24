@@ -8,6 +8,7 @@ const MusicCard = ({ imgProp, nameProp, descriptionProp }) => {
           src={imgProp}
           alt="/"
           fill={true}
+          sizes="max-w-320px"
           className="w-full  h-full top-0 left-0 object-cover object-center"
         />
       </div>

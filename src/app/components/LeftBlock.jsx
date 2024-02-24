@@ -31,7 +31,7 @@ const LeftBlock = () => {
             </a>
           </li>
           <li className="h-[48px] py-[4px] px-[12px]">
-            <a href="/" className="flex gap-[20px] h-[40px] items-center">
+            <a href="/search" className="flex gap-[20px] h-[40px] items-center">
               <Image
                 src={"search.svg"}
                 alt="spotify Logo"
