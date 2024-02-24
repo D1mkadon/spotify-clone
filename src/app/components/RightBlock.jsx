@@ -4,20 +4,14 @@ import RightArrow from "../data/Icons/rightArrow";
 import Image from "next/image";
 import { RightFooterLinks } from "../data/RightFooterLinks";
 import Login from "../data/Login";
-import { useEffect, useState } from "react";
+
 import MusicSection from "./MusicSection";
-const RightBlock = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  useEffect(() => {
-    if (window.scrollY > 100) {
-      setIsScrolled(true);
-    }
-  }, []);
+const RightBlock = ({ isScrolled }) => {
   return (
-    <div className=" rightSideBlock flex flex-col relative ">
+    <div className="h-full flex flex-col relative rounded-lg box-border ">
       <header
-        className={`h-16 flex w-full items-center gap-2 justify-between py-4 px-6 z-[2] ${
-          isScrolled ? "bg-[rgba(0,0,0,.5);]" : "bg-transparent"
+        className={`box-border h-16 sticky top-0 flex w-full items-center gap-2 justify-between py-4 px-6 z-[2] transition-[background-color] ease-in-out duration-300 ${
+          isScrolled ? "bg-[#121212]" : "bg-transparent"
         }  `}
       >
         <div className="flex gap-2">
@@ -39,18 +33,10 @@ const RightBlock = () => {
           <Login />
         </div>
       </header>
-      <div className="bgMain"></div>
-      <div className="h-16"></div>
-      <main className="z-[1] flex flex-col flex-[1] overflow-y-auto">
-        <section className="MusicContainer font-bold">
-          <div className="flex justify-between items-center w-full  h-[30px]">
-            <a href="/" className="hover:underline text-[22px] pl-0">
-              Spotify Playlists
-            </a>
-            <a href="/" className="hover:underline text-[#B3b3b3]">
-              <span className="ml-2 mt-[2px] text-[13px]"> Show all</span>
-            </a>
-          </div>
+      {/* <div className="h-16"></div> */}
+      <main className="flex flex-col flex-[1] relative box-border rounded-lg bg-[#121212]">
+        <div className="bgMain rounded-lg"></div>
+        <section className="MusicContainer font-bold ">
           <MusicSection />
         </section>
         <section className="pb-[40px] px-8 pt-12 w-full box-border">

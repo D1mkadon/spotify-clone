@@ -36,45 +36,62 @@ const MusicSection = () => {
 
   return (
     <section className="">
-      <div className="musicSection">
-        {playlists.length
-          ? playlists?.map((e, index) => (
+      {playlists.length ? (
+        <>
+          <div className="flex relative justify-between items-center w-full z-[1] h-[30px]">
+            <a href="/" className="hover:underline text-[22px] pl-0">
+              Spotify Playlists
+            </a>
+            <a href="/" className="hover:underline text-[#B3b3b3]">
+              <span className="ml-2 mt-[2px] text-[13px]"> Show all</span>
+            </a>
+          </div>
+          <div className="musicSection">
+            {playlists?.map((e, index) => (
               <MusicCard
                 key={index}
                 imgProp={e.images[0].url}
                 nameProp={e.name}
                 descriptionProp={e.description}
               />
-            ))
-          : cardsData.map((e, index) => (
-              <MusicCard
-                key={index}
-                imgProp={e.img}
-                nameProp={e.title}
-                descriptionProp={e.description}
-              />
             ))}
-      </div>
-      <div className="flex justify-between items-center w-full  h-[30px]">
-        <a href="/" className="hover:underline text-[22px] pl-0">
-          New albums Releases
-        </a>
-        <a href="/" className="hover:underline text-[#B3b3b3]">
-          <span className="ml-2 mt-[2px] text-[13px]"> Show all</span>
-        </a>
-      </div>
-      <div className="musicSection">
-        {songs.length > 2
-          ? songs.map((e, index) => (
+          </div>
+        </>
+      ) : (
+        <div className="musicSection">
+          {cardsData.map((e, index) => (
+            <MusicCard
+              key={index}
+              imgProp={e.img}
+              nameProp={e.title}
+              descriptionProp={e.description}
+            />
+          ))}
+        </div>
+      )}
+
+      {songs.length > 2 && (
+        <>
+          <div className="flex justify-between items-center w-full  h-[30px]">
+            <a href="/" className="hover:underline text-[22px] pl-0">
+              New albums Releases
+            </a>
+            <a href="/" className="hover:underline text-[#B3b3b3]">
+              <span className="ml-2 mt-[2px] text-[13px]"> Show all</span>
+            </a>
+          </div>
+          <div className="musicSection">
+            {songs.map((e, index) => (
               <MusicCard
                 key={index}
                 imgProp={e.images[0].url}
                 nameProp={e.name}
                 descriptionProp={e.artists[0].name}
               />
-            ))
-          : null}
-      </div>
+            ))}
+          </div>
+        </>
+      )}
     </section>
   );
 };

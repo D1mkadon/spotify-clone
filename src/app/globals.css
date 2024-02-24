@@ -60,7 +60,6 @@ aside {
   background-color: var(--background-elevated-base);
 }
 .rightSideBlock {
-  overflow: hidden;
   background: var(--background-base);
 }
 .bottomBlock {
@@ -68,10 +67,9 @@ aside {
 }
 .bgMain {
   height: 332px;
-  margin-top: -64px;
   position: absolute;
-
   width: 100%;
+  margin-top: -64px;
   background-image: linear-gradient(
       rgba(0, 0, 0, 0.6) 0,
       var(--background-base) 100%
