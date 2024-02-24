@@ -6,6 +6,7 @@ import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import { getSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -46,6 +47,7 @@ type MyType = {
 
 const Search = () => {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { status } = useSession({
     required: true,
@@ -55,29 +57,32 @@ const Search = () => {
   });
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
-      const sess = await getSession();
-      console.log(sess);
+      const session = await getSession();
+
       await axios
         .get("https://api.spotify.com/v1/browse/categories?limit=30", {
           headers: {
-            Authorization: "Bearer " + (sess as sessionProps)?.access_token,
+            Authorization: "Bearer " + (session as sessionProps)?.access_token,
           },
         })
-        .then((e) => setCategories(e.data.categories.items))
+        .then((e) => {
+          setCategories(e.data.categories.items), setLoading(false);
+          console.log(e.data);
+        })
         .catch((e) => console.log("catched ", e));
     };
     fetchData();
   }, []);
-  if (status === "loading" || !categories.length) {
+  if (status === "loading" || loading) {
     return <p>Loading...</p>;
   }
-  if (status === "authenticated" && categories.length) {
-    console.log(categories);
+  if (status === "authenticated") {
     return (
       <div className={`grid gap-6 categoriesContainer relative px-6`}>
         {categories.map((e: MyType, index) => (
-          <a
+          <Link
             href={`/category/${e.id}`}
             className="rounded-lg overflow-hidden relative p-4 "
             style={{ backgroundColor: `${generateMidtoneColor()}` }}
@@ -95,7 +100,7 @@ const Search = () => {
                 {e.name}
               </p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     );

@@ -33,7 +33,7 @@ const Profile = ({ user }: any) => {
       <button className="hover:scale-[1.04] text-sm ">
         <span className="flex items-center bg-[rgba(0,0,0,.54)] rounded-full py-1 pr-4 pl-[33px] relative h-8">
           <Image
-            src={"download.svg"}
+            src={"/download.svg"}
             className="absolute left-3"
             alt="spotify Logo"
             width={16}
@@ -44,7 +44,7 @@ const Profile = ({ user }: any) => {
       </button>
       <button className="hover:scale-[1.04] bg-[rgba(0,0,0,.54)] rounded-full h-8 w-8 flex items-center justify-center">
         <Image
-          src={"notification.svg"}
+          src={"/notification.svg"}
           alt="spotify Logo"
           width={16}
           height={16}

@@ -3,24 +3,25 @@ import PlusIcon from "../data/Icons/plus";
 import LibraryBlock from "./LibraryBlock";
 import { LibraryData } from "../data/libraryData";
 import { LeftFooterLinks } from "../data/LeftFooterLinks";
+import Link from "next/link";
 
 const LeftBlock = () => {
   return (
     <nav className="leftSideBlock sticky top-2 h-[90vh] flex-[0_0_auto]">
       <div>
         <div className="flex">
-          <a href="/" className=" h-[24px] mt-[20px] px-[24px]">
+          <Link href="/" className=" h-[24px] mt-[20px] px-[24px]">
             <Image
               src={"/spotify.svg"}
               alt="spotify Logo"
               width={78}
               height={24}
             />
-          </a>
+          </Link>
         </div>
         <ul className="py-[8px] px-[12px]">
           <li className="h-[48px] py-[4px] px-[12px]">
-            <a href="/" className="flex gap-[20px] h-[40px] items-center">
+            <Link href="/" className="flex gap-[20px] h-[40px] items-center">
               <Image
                 src={"/home.svg"}
                 alt="spotify Logo"
@@ -28,12 +29,12 @@ const LeftBlock = () => {
                 height={24}
               />
               <span>Home</span>
-            </a>
+            </Link>
           </li>
           <li className="h-[48px] py-[4px] px-[12px]">
             <a href="/search" className="flex gap-[20px] h-[40px] items-center">
               <Image
-                src={"search.svg"}
+                src={"/search.svg"}
                 alt="spotify Logo"
                 width={24}
                 height={24}

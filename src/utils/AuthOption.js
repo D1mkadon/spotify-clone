@@ -24,16 +24,13 @@ const LOGIN_URL =
   new URLSearchParams(params).toString();
 
 async function refreshAccessToken(token) {
-  console.log("refresh token log", token.accessToken);
-  const params = new URLSearchParams();
-  params.append("grant_type", "authorization_code");
-  params.append("redirect_uri", `${REDIRECT_URI}`);
-  params.append("code", `${token.accessToken}`);
+  console.log("refresh token log", token.access_token);
+
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     form: {
       grant_type: "authorization_code",
-      // code: code,
+      code: token.access_token,
       redirect_uri: REDIRECT_URI,
     },
     headers: {
