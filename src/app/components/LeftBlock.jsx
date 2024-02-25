@@ -32,7 +32,10 @@ const LeftBlock = () => {
             </Link>
           </li>
           <li className="h-[48px] py-[4px] px-[12px]">
-            <a href="/search" className="flex gap-[20px] h-[40px] items-center">
+            <Link
+              href="/search"
+              className="flex gap-[20px] h-[40px] items-center"
+            >
               <Image
                 src={"/search.svg"}
                 alt="spotify Logo"
@@ -40,7 +43,7 @@ const LeftBlock = () => {
                 height={24}
               />
               <span>Search</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

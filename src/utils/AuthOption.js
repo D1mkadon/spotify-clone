@@ -13,6 +13,7 @@ const scopes = [
   "user-modify-playback-state",
   "user-library-read",
   "user-library-modify",
+  "user-read-recently-played",
 ].join(",");
 
 const params = {
@@ -24,31 +25,25 @@ const LOGIN_URL =
   new URLSearchParams(params).toString();
 
 async function refreshAccessToken(token) {
-  console.log("refresh token log", token.access_token);
+  console.log("refresh token log", token.refresh_token);
 
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
-    form: {
-      grant_type: "authorization_code",
-      code: token.access_token,
-      redirect_uri: REDIRECT_URI,
-    },
     headers: {
       "content-type": "application/x-www-form-urlencoded",
-      Authorization:
-        "Basic " +
-        new Buffer.from(
-          process.env.CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET
-        ).toString("base64"),
     },
-    json: true,
+    body: {
+      grant_type: "refresh_token",
+      refresh_token: token.refresh_token,
+      redirect_uri: process.env.REDIRECT_URI,
+    },
   });
   const data = await response.json();
   return {
     ...token,
-    accessToken: data.access_token,
-    refreshToken: data.refresh_token ?? token.refreshToken,
-    accessTokenExpires: Date.now() + data.expires_in * 1000,
+    access_token: data.access_token,
+    refresh_token: data.refresh_token ?? token.refreshToken,
+    expires_at: Date.now() + data.expires_in * 1000,
   };
 }
 
@@ -69,19 +64,20 @@ export const authOptions = {
       // console.log("jwt token", token);
 
       // pass expires_at access_token refresh_token to token
-      if (user && account) {
+      if (user) {
         return {
           ...token,
           id: user.id,
-          expires_at: account.expires_at * 1000,
+          expires_at: (account?.expires_at ?? 0) * 1000,
           access_token: account.access_token,
           refresh_token: account.refresh_token,
         };
       }
-      if (Date.now() < token.expires_at) {
+      if (Date.now() - 6000 < token.expires_at) {
         return token;
       }
-      return refreshAccessToken(token);
+      console.log("Token is invalid");
+      return await refreshAccessToken(token);
     },
     async session({ session, user, token, account }) {
       // console.log("session callback", { session, token, user });

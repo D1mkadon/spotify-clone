@@ -8,7 +8,9 @@
 .scr::-webkit-scrollbar {
   width: 12px;
 }
-
+body {
+  background-color: black;
+}
 html,
 :root,
 body {
@@ -171,6 +173,26 @@ header {
 .categoryText {
   overflow-wrap: break-word;
 }
+.topTrackBox {
+  border: 1px solid transparent;
+  grid-template-columns:
+    [index] var(--tracklist-index-column-width, 16px) [first] minmax(
+      120px,
+      var(--col1, 4fr)
+    )
+    [var1] minmax(120px, var(--col2, 2fr)) [last] minmax(120px, var(--col3, 1fr));
+}
+.artistContainer {
+  --fluid-height: clamp(
+    250px,
+    250px +
+      (100vw - var(--left-sidebar-width, 0px) - var(--panel-width, 0px) - 600px)/424 *
+      150,
+    400px
+  );
+  height: min(30vh, var(--fluid-height));
+  max-height: 400px;
+}
 @media (max-width: 462px) {
   :root {
     --column-count: 1;
@@ -207,5 +229,15 @@ header {
 @media (min-width: 1800px) {
   :root {
     --column-count: 7;
+  }
+}
+@media (min-width: 2083px) {
+  :root {
+    --column-count: 8;
+  }
+}
+@media (min-width: 2287px) {
+  :root {
+    --column-count: 9;
   }
 }

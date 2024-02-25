@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { cardsData } from "../data/cardsData";
 import { getSession, useSession } from "next-auth/react";
 import axios from "axios";
-import MusicCard from "./MusicCard";
+
 import { sessionProps } from "@/types/types";
+import MusicCard from "./MusicCard";
 
 type Album = {
   artists: [
@@ -21,10 +22,31 @@ type Album = {
   name: string;
   description: string;
 };
+interface RecentlyProp {
+  track: {
+    id: string;
+    name: string;
+    artists: [
+      {
+        name: string;
+        id: string;
+      }
+    ];
+    album: {
+      name: string;
+      images: [
+        {
+          url: string;
+        }
+      ];
+    };
+  };
+}
 
 const MusicSection = () => {
   const [playlists, setPlaylists] = useState([]);
   const [songs, setSongs] = useState([]);
+  const [recentlyPlayed, setRecentlyPlayed] = useState([]);
   const { status } = useSession({
     required: true,
     onUnauthenticated() {},
@@ -33,7 +55,6 @@ const MusicSection = () => {
     if (status !== "authenticated") return;
     const fetchData = async () => {
       const session = await getSession();
-      console.log(session);
       axios
         .get("https://api.spotify.com/v1/browse/featured-playlists?limit=10", {
           headers: {
@@ -52,6 +73,21 @@ const MusicSection = () => {
           setSongs(e.data.albums.items);
         })
         .catch((e) => console.log(e));
+      axios
+        .get("https://api.spotify.com/v1/me/player/recently-played?limit=10", {
+          headers: {
+            Authorization: "Bearer " + (session as sessionProps).access_token,
+          },
+        })
+        .then((e) => {
+          setRecentlyPlayed(() => [
+            ...new Map(
+              e.data.items.map((v: RecentlyProp) => [v.track.id, v])
+            ).values(),
+          ]);
+          console.log("recentlyPlayed filtered", recentlyPlayed);
+        })
+        .catch((e) => console.log(e));
     };
     fetchData();
   }, []);
@@ -61,6 +97,26 @@ const MusicSection = () => {
       <div className="bgMain rounded-lg"></div>
       <section className="MusicContainer font-bold ">
         <section className="">
+          {recentlyPlayed.length && (
+            <>
+              <div className="flex relative justify-between items-center w-full z-[1] h-[30px]">
+                <p className="hover:underline text-[22px] pl-0">
+                  Recently played
+                </p>
+              </div>
+              <div className="musicSection">
+                {recentlyPlayed?.map((e: RecentlyProp, index) => (
+                  <MusicCard
+                    key={index}
+                    imgProp={e.track.album.images[0].url}
+                    nameProp={e.track.name}
+                    ArtistProp={e.track.artists[0].name}
+                    ArtistId={e.track.artists[0].id}
+                  />
+                ))}
+              </div>
+            </>
+          )}
           {playlists.length ? (
             <>
               <div className="flex relative justify-between items-center w-full z-[1] h-[30px]">
@@ -83,16 +139,26 @@ const MusicSection = () => {
               </div>
             </>
           ) : (
-            <div className="musicSection">
-              {cardsData.map((e, index) => (
-                <MusicCard
-                  key={index}
-                  imgProp={e.img}
-                  nameProp={e.title}
-                  descriptionProp={e.description}
-                />
-              ))}
-            </div>
+            <>
+              <div className="flex relative justify-between items-center w-full z-[1] h-[30px]">
+                <a href="/" className="hover:underline text-[22px] pl-0">
+                  Spotify Playlists
+                </a>
+                <a href="/" className="hover:underline text-[#B3b3b3]">
+                  <span className="ml-2 mt-[2px] text-[13px]"> Show all</span>
+                </a>
+              </div>
+              <div className="musicSection">
+                {cardsData.map((e, index) => (
+                  <MusicCard
+                    key={index}
+                    imgProp={e.img}
+                    nameProp={e.title}
+                    descriptionProp={e.description}
+                  />
+                ))}
+              </div>
+            </>
           )}
 
           {songs.length > 2 && (
