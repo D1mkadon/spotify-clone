@@ -39,6 +39,7 @@ async function refreshAccessToken(token) {
     },
   });
   const data = await response.json();
+  console.log(data);
   return {
     ...token,
     access_token: data.access_token,
@@ -73,7 +74,7 @@ export const authOptions = {
           refresh_token: account.refresh_token,
         };
       }
-      if (Date.now() - 6000 < token.expires_at) {
+      if (Date.now() - 60000 < token.expires_at) {
         return token;
       }
       console.log("Token is invalid");

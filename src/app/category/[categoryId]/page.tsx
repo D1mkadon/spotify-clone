@@ -64,21 +64,30 @@ const page = ({ params }: { params: { categoryId: string } }) => {
   }
   if (status === "authenticated") {
     return (
-      <div>
-        <h1 className="text-8xl">
-          {(categoryData as categoryDataProps).message}
-        </h1>
-        <div className="musicSection">
-          {playlist.map((e, index) => (
-            <MusicCard
-              key={index}
-              imgProp={e.images[0].url}
-              nameProp={e.name}
-              descriptionProp={e.description}
-            />
-          ))}
+      <>
+        <div
+          style={{
+            // backgroundColor: ,
+            height: "582px",
+          }}
+          className="bgMain top-0 z-[0] rounded-lg "
+        ></div>
+        <div>
+          <h1 className="text-8xl">
+            {(categoryData as categoryDataProps).message}
+          </h1>
+          <div className="musicSection">
+            {playlist.map((e, index) => (
+              <MusicCard
+                key={index}
+                imgProp={e.images[0].url}
+                nameProp={e.name}
+                descriptionProp={e.description}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 };

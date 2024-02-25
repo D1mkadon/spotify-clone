@@ -1,16 +1,18 @@
 "use client";
-import PlayButton from "@/app/components/PlayButton";
+
 import { sessionProps } from "@/types/types";
 import axios from "axios";
 import { getSession, useSession } from "next-auth/react";
-import Image from "next/image";
+
 import React, { useEffect, useState } from "react";
 import ArtistHeader from "./artistHeader";
 import TopTracks from "./topTracks";
+import { getColorByGenre } from "@/app/data/cardsData";
 
 type artistProp = {
   name: string;
   images: [{ url: string }];
+  genres: [string];
 };
 export type topTrackProp = {
   name: string;
@@ -25,7 +27,9 @@ const page = ({ params }: { params: { artistId: string } }) => {
   const [artist, setArtist] = useState<artistProp>({
     name: "",
     images: [{ url: "" }],
+    genres: [""],
   });
+
   useEffect(() => {
     const fetchData = async () => {
       const session = await getSession();
@@ -37,6 +41,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
         })
         .then((e) => {
           setArtist(e.data);
+          console.log("artist", e.data);
         })
         .catch((e) => console.log(e));
       axios
@@ -61,7 +66,10 @@ const page = ({ params }: { params: { artistId: string } }) => {
     return (
       <>
         <div
-          style={{ backgroundColor: "green", height: "582px" }}
+          style={{
+            backgroundColor: getColorByGenre(artist.genres[0]),
+            height: "582px",
+          }}
           className="bgMain top-0 z-[0] rounded-lg "
         ></div>
         <div className="relative px-2">
