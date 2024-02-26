@@ -5,6 +5,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import { dropDownData } from "./dropDownData";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Profile = ({ user }: any) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,7 +31,7 @@ const Profile = ({ user }: any) => {
           Explore Premium
         </span>
       </button>
-      <button className="hover:scale-[1.04] text-sm ">
+      <Link href={"/download"} className="hover:scale-[1.04] text-sm ">
         <span className="flex items-center bg-[rgba(0,0,0,.54)] rounded-full py-1 pr-4 pl-[33px] relative h-8">
           <Image
             src={"/download.svg"}
@@ -41,7 +42,7 @@ const Profile = ({ user }: any) => {
           />
           <span>Install App</span>
         </span>
-      </button>
+      </Link>
       <button className="hover:scale-[1.04] bg-[rgba(0,0,0,.54)] rounded-full h-8 w-8 flex items-center justify-center">
         <Image
           src={"/notification.svg"}

@@ -16,6 +16,7 @@ const ArtistHeader = ({ imgUrl, artistName }: artistHeadProps) => {
           width={232}
           height={232}
           sizes=""
+          priority
           className="rounded-full mr-6 shadow-[0_4px_60px_rgba(0,0,0,.5)]"
         />
         <div className="flex flex-col">

@@ -4,13 +4,15 @@ import { cardsData } from "../data/cardsData";
 import { getSession, useSession } from "next-auth/react";
 import axios from "axios";
 
-import { sessionProps } from "@/types/types";
+import { albumProp, sessionProps } from "@/types/types";
 import MusicCard from "./MusicCard";
+import BrowseAllComponent from "./BrowseAllComponent";
 
 type Album = {
   artists: [
     {
       name: string;
+      id: string;
     }
   ];
   images: [
@@ -100,9 +102,7 @@ const MusicSection = () => {
           {recentlyPlayed.length && (
             <>
               <div className="flex relative justify-between items-center w-full z-[1] h-[30px]">
-                <p className="hover:underline text-[22px] pl-0">
-                  Recently played
-                </p>
+                <p className="text-[22px] pl-0">Recently played</p>
               </div>
               <div className="musicSection">
                 {recentlyPlayed?.map((e: RecentlyProp, index) => (
@@ -119,16 +119,10 @@ const MusicSection = () => {
           )}
           {playlists.length ? (
             <>
-              <div className="flex relative justify-between items-center w-full z-[1] h-[30px]">
-                <a href="/" className="hover:underline text-[22px] pl-0">
-                  Spotify Playlists
-                </a>
-                <a href="/" className="hover:underline text-[#B3b3b3]">
-                  <span className="ml-2 mt-[2px] text-[13px]"> Show all</span>
-                </a>
-              </div>
+              <BrowseAllComponent title="Spotify Playlists" href="/" />
+
               <div className="musicSection">
-                {playlists?.map((e: Album, index) => (
+                {playlists?.map((e: albumProp, index) => (
                   <MusicCard
                     key={index}
                     imgProp={e.images[0].url}
@@ -140,14 +134,7 @@ const MusicSection = () => {
             </>
           ) : (
             <>
-              <div className="flex relative justify-between items-center w-full z-[1] h-[30px]">
-                <a href="/" className="hover:underline text-[22px] pl-0">
-                  Spotify Playlists
-                </a>
-                <a href="/" className="hover:underline text-[#B3b3b3]">
-                  <span className="ml-2 mt-[2px] text-[13px]"> Show all</span>
-                </a>
-              </div>
+              <BrowseAllComponent title="Spotify Playlists" href="/" />
               <div className="musicSection">
                 {cardsData.map((e, index) => (
                   <MusicCard
@@ -163,21 +150,15 @@ const MusicSection = () => {
 
           {songs.length > 2 && (
             <>
-              <div className="flex justify-between items-center w-full  h-[30px]">
-                <a href="/" className="hover:underline text-[22px] pl-0">
-                  New albums Releases
-                </a>
-                <a href="/" className="hover:underline text-[#B3b3b3]">
-                  <span className="ml-2 mt-[2px] text-[13px]"> Show all</span>
-                </a>
-              </div>
+              <BrowseAllComponent title=" New albums Releases" href="/" />
               <div className="musicSection">
                 {songs.map((e: Album, index) => (
                   <MusicCard
                     key={index}
                     imgProp={e.images[0].url}
                     nameProp={e.name}
-                    descriptionProp={e.artists[0].name}
+                    ArtistProp={e.artists[0].name}
+                    ArtistId={e.artists[0].id}
                   />
                 ))}
               </div>

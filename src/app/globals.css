@@ -193,6 +193,10 @@ header {
   height: min(30vh, var(--fluid-height));
   max-height: 400px;
 }
+.bgInstall {
+  background: linear-gradient(180deg, #1e3264 0, var(--background-base) 40%);
+  height: calc(100vh - 64px);
+}
 @media (max-width: 462px) {
   :root {
     --column-count: 1;

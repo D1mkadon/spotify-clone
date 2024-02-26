@@ -1,36 +1,11 @@
 "use client";
 
 import MusicCard from "@/app/components/MusicCard";
-import { sessionProps } from "@/types/types";
+import { categoryDataProps, itemProp, sessionProps } from "@/types/types";
 import axios from "axios";
 import { getSession, useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
-type itemProp = {
-  collaborative: boolean;
-  description: string;
-  external_urls: {
-    spotify: string;
-  };
-  images: [
-    {
-      url: string;
-    }
-  ];
-  name: string;
-  primary_color: string;
-  snapshot_id: string;
-  tracks: {
-    href: string;
-    total: number;
-  };
-  type: string;
-};
-
-interface categoryDataProps {
-  message?: "Hip-Hop";
-  playlists?: {};
-}
 const page = ({ params }: { params: { categoryId: string } }) => {
   const { status } = useSession({
     required: true,
@@ -66,10 +41,7 @@ const page = ({ params }: { params: { categoryId: string } }) => {
     return (
       <>
         <div
-          style={{
-            // backgroundColor: ,
-            height: "582px",
-          }}
+          style={{ height: "582px" }}
           className="bgMain top-0 z-[0] rounded-lg "
         ></div>
         <div className="px-6">

@@ -50,140 +50,146 @@ export const cardsData = [
 
 export const getColorByGenre = (genre) => {
   switch (genre) {
-    case "pop" ||
-      "idm" ||
-      "indian" ||
-      "indie" ||
-      "indie-pop" ||
-      "industrial" ||
-      "iranian" ||
-      "j-dance" ||
-      "j-idol" ||
-      "j-pop" ||
-      "world-music" ||
-      "j-rock":
+    case "pop":
+    case "idm":
+    case "indian":
+    case "indie":
+    case "indie-pop":
+    case "industrial":
+    case "iranian":
+    case "j-dance":
+    case "j-idol":
+    case "j-pop":
+    case "world-music":
+    case "j-rock":
       return "#506880";
-    case "soundtracks" ||
-      "spanish" ||
-      "study" ||
-      "summer" ||
-      "swedish" ||
-      "synth-pop" ||
-      "tango" ||
-      "techno" ||
-      "trance" ||
-      "trip-hop" ||
-      "turkish" ||
-      "work-out":
+    case "soundtracks":
+    case "spanish":
+    case "study":
+    case "summer":
+    case "swedish":
+    case "synth-pop":
+    case "tango":
+    case "techno":
+    case "trance":
+    case "trip-hop":
+    case "turkish":
+    case "work-out":
       return "#6366f1";
-    case "acoustic" ||
-      "afrobeat" ||
-      "alt-rock" ||
-      "alternative" ||
-      "ambient" ||
-      "anime" ||
-      "black-metal" ||
-      "bluegrass" ||
-      "blues" ||
-      "bossanova" ||
-      "brazil" ||
-      "breakbeat" ||
-      "british":
+    case "acoustic":
+    case "afrobeat":
+    case "alt-rock":
+    case "alternative":
+    case "ambient":
+    case "atl hip hop":
+    case "anime":
+    case "black-metal":
+    case "bluegrass":
+    case "blues":
+    case "bossanova":
+    case "brazil":
+    case "breakbeat":
+    case "british":
       return "#3b82f6";
-    case "rockabilly" ||
-      "romance" ||
-      "sad" ||
-      "salsa" ||
-      "samba" ||
-      "sertanejo" ||
-      "show-tunes" ||
-      "singer-songwriter" ||
-      "ska" ||
-      "sleep" ||
-      "songwriter" ||
-      "soul":
+    case "rockabilly":
+    case "romance":
+    case "sad":
+    case "salsa":
+    case "samba":
+    case "sertanejo":
+    case "show-tunes":
+    case "singer-songwriter":
+    case "ska":
+    case "sleep":
+    case "songwriter":
+    case "soul":
       return "#22c55e";
-    case "piano" ||
-      "post-dubstep" ||
-      "power-pop" ||
-      "progressive-house" ||
-      "psych-rock" ||
-      "punk" ||
-      "punk-rock" ||
-      "r-n-b" ||
-      "rainy-day" ||
-      "reggae" ||
-      "reggaeton" ||
-      "road-trip" ||
-      "rock" ||
-      "rock-n-roll":
+    case "piano":
+    case "post-dubstep":
+    case "power-pop":
+    case "progressive-house":
+    case "psych-rock":
+    case "punk":
+    case "punk-rock":
+    case "r-n-b":
+    case "rainy-day":
+    case "reggae":
+    case "reggaeton":
+    case "road-trip":
+    case "rock":
+    case "rock-n-roll":
       return "#ef4444";
-    case "metal" ||
-      "metal-misc" ||
-      "metalcore" ||
-      "minimal-techno" ||
-      "movies" ||
-      "mpb" ||
-      "new-age" ||
-      "new-release" ||
-      "opera" ||
-      "pagode" ||
-      "party" ||
-      "philippines-opm" ||
-      "pop-film":
+    case "metal":
+    case "metal-misc":
+    case "metalcore":
+    case "minimal-techno":
+    case "movies":
+    case "mpb":
+    case "new-age":
+    case "new-release":
+    case "opera":
+    case "pagode":
+    case "party":
+    case "philippines-opm":
+    case "pop-film":
       return "#eab308";
-    case "hardstyle" ||
-      "heavy-metal" ||
-      "hip-hop" ||
-      "holidays" ||
-      "honky-tonk" ||
-      "house" ||
-      "jazz" ||
-      "k-pop" ||
-      "kids" ||
-      "latin" ||
-      "latino" ||
-      "malay" ||
-      "mandopop":
+    case "hardstyle":
+    case "heavy-metal":
+    case "hip-hop":
+    case "holidays":
+    case "honky-tonk":
+    case "house":
+    case "jazz":
+    case "k-pop":
+    case "kids":
+    case "latin":
+    case "latino":
+    case "malay":
+    case "mandopop":
       return "#ec4899";
-    case "funk" ||
-      "garage" ||
-      "german" ||
-      "gospel" ||
-      "goth" ||
-      "grindcore" ||
-      "groove" ||
-      "grunge" ||
-      "guitar" ||
-      "happy" ||
-      "hard-rock" ||
-      "hardcore":
+    case "funk":
+    case "garage":
+    case "german":
+    case "gospel":
+    case "goth":
+    case "grindcore":
+    case "groove":
+    case "grunge":
+    case "guitar":
+    case "happy":
+    case "hard-rock":
+    case "afroswing":
+    case "grime":
+    case "london rap":
+    case "uk hip hop":
+    case "hip hop":
+    case "hardcore":
       return "#a855f7";
-    case "cantopop" ||
-      "chicago-house" ||
-      "children" ||
-      "chill" ||
-      "classical" ||
-      "club" ||
-      "comedy" ||
-      "country" ||
-      "dance" ||
-      "dancehall" ||
-      "death-metal" ||
-      "deep-house" ||
-      "detroit-techno" ||
-      "disco" ||
-      "disney" ||
-      "drum-and-bass" ||
-      "dub" ||
-      "dubstep" ||
-      "edm" ||
-      "electro" ||
-      "electronic" ||
-      "emo" ||
-      "folk" ||
-      "forro" ||
-      "french":
+    case "cantopop":
+    case "chicago-house":
+    case "children":
+    case "chill":
+    case "classical":
+    case "club":
+    case "comedy":
+    case "country":
+    case "dance":
+    case "dancehall":
+    case "death-metal":
+    case "deep-house":
+    case "detroit-techno":
+    case "disco":
+    case "disney":
+    case "drum-and-bass":
+    case "dub":
+    case "dubstep":
+    case "edm":
+    case "electro":
+    case "electronic":
+    case "emo":
+    case "folk":
+    case "forro":
+    case "french":
       return "#d6d3d1";
     default:
       return "#166534";

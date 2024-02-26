@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { topTrackProp } from "./page";
 import Image from "next/image";
+import { topTrackProp } from "@/types/types";
 
 function millisToMinutesAndSeconds(millis: number) {
   const d = new Date(millis);

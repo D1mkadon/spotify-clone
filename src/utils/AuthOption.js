@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-
 import SpotifyProvider from "next-auth/providers/spotify";
 
 const scopes = [
@@ -25,7 +24,7 @@ const LOGIN_URL =
   new URLSearchParams(params).toString();
 
 async function refreshAccessToken(token) {
-  const refreshToken = localStorage.getItem("refresh_token");
+  // const refreshToken = localStorage.getItem("refresh_token");
   console.log("refresh token log", token.refresh_token);
 
   const response = await fetch("https://accounts.spotify.com/api/token", {
@@ -35,13 +34,13 @@ async function refreshAccessToken(token) {
     },
     body: {
       grant_type: "refresh_token",
-      refresh_token: refreshToken,
+      refresh_token: token.refresh_token,
       redirect_uri: process.env.REDIRECT_URI,
     },
   });
   const data = await response.json();
   console.log("dataResponse", data);
-  localStorage.setItem("refresh_token", response.refreshToken);
+  // localStorage.setItem("refresh_token", response.refreshToken);
   return {
     ...token,
     access_token: data.access_token,
