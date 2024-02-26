@@ -46,7 +46,7 @@ interface RecentlyProp {
 const MusicSection = () => {
   const [playlists, setPlaylists] = useState([]);
   const [songs, setSongs] = useState([]);
-  const [recentlyPlayed, setRecentlyPlayed] = useState([]);
+  const [recentlyPlayed, setRecentlyPlayed] = useState<RecentlyProp[]>([]);
   const { status } = useSession({
     required: true,
     onUnauthenticated() {},
@@ -80,12 +80,12 @@ const MusicSection = () => {
           },
         })
         .then((e) => {
-          setRecentlyPlayed(() => [
-            ...new Map(
-              e.data.items.map((v: RecentlyProp) => [v.track.id, v])
-            ).values(),
-          ]);
-          console.log("recentlyPlayed filtered", recentlyPlayed);
+          const getUniqueListBy = (arr: RecentlyProp[]) => {
+            return Array.from(
+              new Map(arr.map((item) => [item.track.id, item])).values()
+            );
+          };
+          setRecentlyPlayed(getUniqueListBy(e.data.items));
         })
         .catch((e) => console.log(e));
     };

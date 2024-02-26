@@ -25,6 +25,7 @@ const LOGIN_URL =
   new URLSearchParams(params).toString();
 
 async function refreshAccessToken(token) {
+  const refreshToken = localStorage.getItem("refresh_token");
   console.log("refresh token log", token.refresh_token);
 
   const response = await fetch("https://accounts.spotify.com/api/token", {
@@ -34,12 +35,13 @@ async function refreshAccessToken(token) {
     },
     body: {
       grant_type: "refresh_token",
-      refresh_token: token.refresh_token,
+      refresh_token: refreshToken,
       redirect_uri: process.env.REDIRECT_URI,
     },
   });
   const data = await response.json();
-  console.log(data);
+  console.log("dataResponse", data);
+  localStorage.setItem("refresh_token", response.refreshToken);
   return {
     ...token,
     access_token: data.access_token,
@@ -74,7 +76,7 @@ export const authOptions = {
           refresh_token: account.refresh_token,
         };
       }
-      if (Date.now() - 60000 < token.expires_at) {
+      if (Date.now() - 6000 < token.expires_at) {
         return token;
       }
       console.log("Token is invalid");

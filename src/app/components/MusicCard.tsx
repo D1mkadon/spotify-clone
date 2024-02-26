@@ -7,6 +7,7 @@ interface cardProp {
   descriptionProp?: string;
   ArtistProp?: string;
   ArtistId?: string;
+  albumType?: string;
 }
 
 const MusicCard = ({
@@ -15,6 +16,7 @@ const MusicCard = ({
   descriptionProp,
   ArtistProp,
   ArtistId,
+  albumType,
 }: cardProp) => {
   return (
     <div className="p-4 rounded-lg relative bg-[#181818] cursor-pointer hover:bg-[#282828] h-full w-full transition-all duration-[0.3] ease-in-out">
@@ -31,13 +33,16 @@ const MusicCard = ({
         <p className="inline-block max-w-full pb-1 text-base font-bold overflow-hidden text-ellipsis whitespace-nowrap h-[26px]">
           {nameProp}
         </p>
-        <div className="MusicCardDescription">
-          {ArtistProp && ArtistId && (
-            <Link href={`/artist/${ArtistId}`} className="hover:underline">
-              {ArtistProp}
-            </Link>
-          )}
-          {descriptionProp && descriptionProp}
+        <div className="">
+          <div className="flex justify-between MusicCardDescription">
+            {ArtistProp && ArtistId && (
+              <Link href={`/artist/${ArtistId}`} className="hover:underline">
+                {ArtistProp}
+              </Link>
+            )}
+            {descriptionProp && <p className="capitalize">{descriptionProp}</p>}
+            {albumType && <p className="capitalize">{albumType}</p>}
+          </div>
         </div>
       </div>
     </div>

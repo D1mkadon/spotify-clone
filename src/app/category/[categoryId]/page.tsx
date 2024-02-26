@@ -72,7 +72,7 @@ const page = ({ params }: { params: { categoryId: string } }) => {
           }}
           className="bgMain top-0 z-[0] rounded-lg "
         ></div>
-        <div>
+        <div className="px-6">
           <h1 className="text-8xl">
             {(categoryData as categoryDataProps).message}
           </h1>

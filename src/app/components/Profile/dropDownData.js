@@ -6,7 +6,7 @@ export const dropDownData = [
     url: "It's easy, we'll help you",
     icon: (
       <Image
-        src={"forwardIcon.svg"}
+        src={"/forwardIcon.svg"}
         alt="spotify Logo"
         width={16}
         height={16}
@@ -23,7 +23,7 @@ export const dropDownData = [
     url: "It's easy, we'll help you",
     icon: (
       <Image
-        src={"forwardIcon.svg"}
+        src={"/forwardIcon.svg"}
         alt="spotify Logo"
         width={16}
         height={16}
