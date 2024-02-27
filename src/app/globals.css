@@ -14,7 +14,6 @@ body {
 html,
 :root,
 body {
-  min-height: 100vh;
 }
 :root {
   --panel-gap: 8px;

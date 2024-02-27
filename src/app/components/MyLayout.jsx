@@ -28,7 +28,7 @@ const MyLayout = ({ children }) => {
       >
         <div className="h-full min-h-[100vh] w-full flex flex-col relative rounded-lg box-border bg-[#121212]">
           <Header isScrolled={isScrolled} />
-          <main className="flex flex-col flex-[1] relative  box-border rounded-lg bg-[#121212]">
+          <main className="flex flex-col flex-[1] relative -mt-[64px] box-border rounded-lg bg-[#121212]">
             <div className="flex-[1]  relative ">{children}</div>
 
             <Footer />
