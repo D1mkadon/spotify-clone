@@ -32,7 +32,7 @@ async function refreshAccessToken(token) {
     headers: {
       "content-type": "application/x-www-form-urlencoded",
     },
-    body: {
+    form: {
       grant_type: "refresh_token",
       refresh_token: token.refresh_token,
       redirect_uri: process.env.REDIRECT_URI,

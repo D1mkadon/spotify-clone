@@ -6,7 +6,9 @@ interface artistHeadProps {
   imgUrl: string;
   artistName: string;
 }
+
 const ArtistHeader = ({ imgUrl, artistName }: artistHeadProps) => {
+
   return (
     <>
       <div className="flex justify-start items-end z-[1] artistContainer relative bg-transparent mt-4 px-6 pb-6">

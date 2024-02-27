@@ -16,6 +16,7 @@ import {
   fetchTopArtistTracks,
 } from "@/app/data/fetchData";
 import { albumProp, artistProp, topTrackProp } from "@/types/types";
+
 const initialAlbum = {
   name: "",
   images: [{ url: "" }, { url: "" }, { url: "" }],
@@ -64,6 +65,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
 
   return (
     <>
+      <title>{artist.name}</title>
       <div
         style={{
           backgroundColor: getColorByGenre(artist.genres[0]),

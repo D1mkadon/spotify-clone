@@ -20,7 +20,6 @@ type Album = {
       url: string;
     }
   ];
-
   name: string;
   description: string;
 };
