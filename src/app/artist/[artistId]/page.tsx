@@ -17,18 +17,10 @@ import {
 } from "@/app/data/fetchData";
 import { albumProp, artistProp, topTrackProp } from "@/types/types";
 
-const initialAlbum = {
-  name: "",
-  images: [{ url: "" }, { url: "" }, { url: "" }],
-  type: "",
-  release_date: "",
-  album_type: "",
-  album_group: "",
-};
-
 const page = ({ params }: { params: { artistId: string } }) => {
   const { status } = useSession();
-  const [albums, setAlbums] = useState<Array<albumProp>>([initialAlbum]);
+  const [albums, setAlbums] = useState<Array<albumProp>>([]);
+  const [appearsOn, setAppearsOn] = useState<Array<albumProp>>([]);
   const [found, setFound] = useState(false);
   const [topTracks, setTopTracks] = useState<topTrackProp[]>([]);
   const [relatedArtists, setRelatedArtists] = useState<artistProp[]>([]);
@@ -38,6 +30,9 @@ const page = ({ params }: { params: { artistId: string } }) => {
     genres: [""],
     type: "",
     id: "",
+    followers: {
+      total: 0,
+    },
   });
 
   useEffect(() => {
@@ -47,9 +42,10 @@ const page = ({ params }: { params: { artistId: string } }) => {
     fetchArtistAlbums(
       params.artistId,
       setAlbums,
-      setFound,
-      "compilation,appears_on"
+      "compilation,appears_on",
+      setFound
     );
+    fetchArtistAlbums(params.artistId, setAppearsOn, "appears_on");
   }, []);
   if (
     status === "loading" ||
@@ -60,12 +56,21 @@ const page = ({ params }: { params: { artistId: string } }) => {
     return <p>loading...</p>;
   }
   const handleClick = async (value: string) => {
-    fetchArtistAlbums(params.artistId, setAlbums, setFound, value);
+    fetchArtistAlbums(params.artistId, setAlbums, value);
+  };
+  const handleClickPopular = async (value: string) => {
+    await fetchArtistAlbums(params.artistId, setAlbums, value).then(() => {
+      setAlbums((e) =>
+        e.sort(function (a: albumProp, b: albumProp) {
+          return b.total_tracks - a.total_tracks;
+        })
+      );
+    });
   };
 
   return (
     <>
-      <title>{artist.name}</title>
+      {/* <title>{artist.name}</title> */}
       <div
         style={{
           backgroundColor: getColorByGenre(artist.genres[0]),
@@ -74,22 +79,32 @@ const page = ({ params }: { params: { artistId: string } }) => {
         className="bgMain top-0 z-[0] rounded-lg "
       ></div>
       <div className="relative px-2">
-        <ArtistHeader imgUrl={artist.images[0].url} artistName={artist?.name} />
+        <ArtistHeader
+          imgUrl={artist.images[0].url}
+          artistName={artist?.name}
+          followers={artist.followers.total}
+        />
         <TopTracks topTracks={topTracks} />
         <div className="w-full px-4">
-          <BrowseAllComponent title=" Discography" href="/" />
-          <AlbumSwitcher handleClick={handleClick} found={found} />
+          <BrowseAllComponent
+            title="Discography"
+            href={`/artist/${params.artistId}/discography/all`}
+          />
+          <AlbumSwitcher
+            handleClick={handleClick}
+            found={found}
+            handleClickPopular={handleClickPopular}
+          />
           <div className="musicSection">
-            {!!albums.length &&
-              albums.map((value: albumProp, index: number) => (
-                <MusicCard
-                  key={index}
-                  nameProp={value.name}
-                  descriptionProp={value.release_date.slice(0, 4)}
-                  albumType={value.album_type}
-                  imgProp={value.images[1].url}
-                />
-              ))}
+            {albums.map((value: albumProp, index: number) => (
+              <MusicCard
+                key={index}
+                nameProp={value.name}
+                descriptionProp={value.release_date.slice(0, 4)}
+                albumType={value.album_type}
+                imgProp={value.images[1].url}
+              />
+            ))}
           </div>
           <BrowseAllComponent
             title="Fans also like"
@@ -105,6 +120,22 @@ const page = ({ params }: { params: { artistId: string } }) => {
                 />
               </Link>
             ))}
+          </div>
+          <BrowseAllComponent
+            title="Appears on"
+            href={`/artist/${params.artistId}/related`}
+          />
+          <div className="musicSection">
+            {!!appearsOn.length &&
+              appearsOn.map((value: albumProp, index: number) => (
+                <MusicCard
+                  key={index}
+                  nameProp={value.name}
+                  descriptionProp={value.release_date.slice(0, 4)}
+                  albumType={value.album_type}
+                  imgProp={value.images[1].url}
+                />
+              ))}
           </div>
         </div>
       </div>

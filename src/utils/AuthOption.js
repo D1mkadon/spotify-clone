@@ -25,28 +25,27 @@ const LOGIN_URL =
 
 async function refreshAccessToken(token) {
   // const refreshToken = localStorage.getItem("refresh_token");
-  console.log("refresh token log", token.refresh_token);
-
-  const response = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      "content-type": "application/x-www-form-urlencoded",
-    },
-    form: {
-      grant_type: "refresh_token",
-      refresh_token: token.refresh_token,
-      redirect_uri: process.env.REDIRECT_URI,
-    },
-  });
-  const data = await response.json();
-  console.log("dataResponse", data);
-  // localStorage.setItem("refresh_token", response.refreshToken);
-  return {
-    ...token,
-    access_token: data.access_token,
-    refresh_token: data.refresh_token ?? token.refreshToken,
-    expires_at: Date.now() + data.expires_in * 1000,
-  };
+  // console.log("refresh token log", token.refresh_token);
+  // const response = await fetch("https://accounts.spotify.com/api/token", {
+  //   method: "POST",
+  //   headers: {
+  //     "content-type": "application/x-www-form-urlencoded",
+  //   },
+  //   form: {
+  //     grant_type: "refresh_token",
+  //     refresh_token: token.refresh_token,
+  //     redirect_uri: process.env.REDIRECT_URI,
+  //   },
+  // });
+  // const data = await response.json();
+  // console.log("dataResponse", data);
+  // // localStorage.setItem("refresh_token", response.refreshToken);
+  // return {
+  //   ...token,
+  //   access_token: data.access_token,
+  //   refresh_token: data.refresh_token ?? token.refreshToken,
+  //   expires_at: Date.now() + data.expires_in * 1000,
+  // };
 }
 
 export const authOptions = {
@@ -59,7 +58,7 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  // secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
     async jwt({ token, user, account }) {

@@ -27,7 +27,7 @@ const page = ({ params }: { params: { categoryId: string } }) => {
         )
         .then((e) => {
           setCategoryData(e.data), setPlaylist(e.data.playlists.items);
-          console.log(e.data);
+   
         })
         .catch((e) => console.log(e));
     };

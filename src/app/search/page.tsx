@@ -51,6 +51,9 @@ const Search = () => {
   const router = useRouter();
   const { status } = useSession({
     required: true,
+    onUnauthenticated() {
+      
+    },
     });
 
   useEffect(() => {

@@ -15,6 +15,9 @@ export type artistProp = {
   genres: [string];
   type: string;
   id: string;
+  followers: {
+    total: number;
+  };
 };
 export interface albumProp {
   name: string;
@@ -24,6 +27,8 @@ export interface albumProp {
   album_type: string;
   album_group: string;
   description?: string;
+  total_tracks: number;
+  id:string
 }
 export type topTrackProp = {
   name: string;

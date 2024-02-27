@@ -5,25 +5,30 @@ import React from "react";
 interface artistHeadProps {
   imgUrl: string;
   artistName: string;
+  followers: number;
 }
 
-const ArtistHeader = ({ imgUrl, artistName }: artistHeadProps) => {
-
+const ArtistHeader = ({ imgUrl, artistName, followers }: artistHeadProps) => {
   return (
     <>
       <div className="flex justify-start items-end z-[1] artistContainer relative bg-transparent mt-4 px-6 pb-6">
-        <Image
-          src={imgUrl}
-          alt=""
-          width={232}
-          height={232}
-          sizes=""
-          priority
-          className="rounded-full mr-6 shadow-[0_4px_60px_rgba(0,0,0,.5)]"
-        />
+        <div className="size-[232px] mr-6 relative">
+          <Image
+            src={imgUrl}
+            alt=""
+            width={232}
+            height={232}
+            sizes=""
+            priority
+            className="rounded-full shadow-[0_4px_60px_rgba(0,0,0,.5)]"
+          />
+        </div>
         <div className="flex flex-col">
           <h1 className="text-8xl font-bold ">{artistName}</h1>
-          <p>followers</p>
+          <p className="mt-2">
+            {followers.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+            followers
+          </p>
         </div>
       </div>
       <div className="flex flex-row items-center w-full p-4">

@@ -1,13 +1,19 @@
 // export interface dataProps {
 //   data: {};
 // }
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { dropDownData } from "./dropDownData";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Profile = ({ user }: any) => {
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      
+    },
+    });
   const [isVisible, setIsVisible] = useState(false);
   const dropdownRef = useRef<HTMLButtonElement>(null);
   const dropDownContent = useRef<HTMLDivElement>(null);
