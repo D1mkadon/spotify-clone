@@ -113,7 +113,6 @@ export const fetchArtistAllAlbums = async (
   )
     .then((e) => e.json())
     .then((data1) => {
-      console.log(data1);
       data1.items.map((e: albumProp) => {
         ids = `${ids}` + `${e.id},`;
       });
@@ -132,4 +131,3 @@ export const fetchArtistAllAlbums = async (
     })
     .catch((e) => console.log(e));
 };
-

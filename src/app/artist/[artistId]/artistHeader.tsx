@@ -33,7 +33,7 @@ const ArtistHeader = ({ imgUrl, artistName, followers }: artistHeadProps) => {
       </div>
       <div className="flex flex-row items-center w-full p-4">
         <div className="mr-8">
-          <PlayButton />
+          <PlayButton bg="#1ed760" MySize="56px" />
         </div>
 
         <button className="mr-4 py-[3px] px-[15px] text-sm rounded-full font-bold bg-transparent box-border cursor-pointer inline-flex hover:scale-[1.04] items-center justify-center border border-[#878787] hover:border-white">

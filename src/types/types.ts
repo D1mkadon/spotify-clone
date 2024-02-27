@@ -28,7 +28,11 @@ export interface albumProp {
   album_group: string;
   description?: string;
   total_tracks: number;
-  id:string
+  id: string;
+  tracks: {
+    items: { duration_ms: number; name: string; track_number: number }[];
+  };
+  artists: [{ name: string }];
 }
 export type topTrackProp = {
   name: string;

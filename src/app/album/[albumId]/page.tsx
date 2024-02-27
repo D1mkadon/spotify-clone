@@ -4,10 +4,8 @@ import React from "react";
 const page = ({ params }: { params: { albumId: string } }) => {
   const { status } = useSession({
     required: true,
-    onUnauthenticated() {
-      
-    },
-    });
+    onUnauthenticated() {},
+  });
   return <div>page</div>;
 };
 

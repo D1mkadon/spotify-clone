@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { topTrackProp } from "@/types/types";
 
-function millisToMinutesAndSeconds(millis: number) {
-  const d = new Date(millis);
-  return `${d.getMinutes()}:${d.getSeconds()}`;
+export function millisToMinutesAndSeconds(millis: number): string {
+  const minutes: number = Math.floor(millis / 60000);
+  const seconds: string = ((millis % 60000) / 1000).toFixed(0).padStart(2, "0");
+  return `${minutes}:${seconds}`;
 }
 
 const TopTracks = ({ topTracks }: any) => {

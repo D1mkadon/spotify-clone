@@ -1,9 +1,16 @@
 import Image from "next/image";
 import React from "react";
 
-const PlayButton = () => {
+const PlayButton = ({ bg, MySize }: { bg: string; MySize: string }) => {
   return (
-    <button className="flex justify-center items-center bg-[#1ed760] w-14 h-14 rounded-full hover:scale-[1.04]">
+    <button
+      style={{
+        background: bg,
+        width: MySize,
+        height: MySize,
+      }}
+      className={`flex justify-center items-center bg-[##1ed760] size-14 rounded-full hover:scale-[1.04]`}
+    >
       <Image src={"/triangle.svg"} alt="/" width={24} height={24} />
     </button>
   );
