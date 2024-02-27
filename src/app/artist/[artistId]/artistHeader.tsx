@@ -11,7 +11,7 @@ interface artistHeadProps {
 const ArtistHeader = ({ imgUrl, artistName, followers }: artistHeadProps) => {
   return (
     <>
-      <div className="flex justify-start items-end z-[1] artistContainer relative bg-transparent mt-4 px-6 pb-6">
+      <div className="flex justify-start items-end z-[1] artistContainer relative bg-transparent mt-10 px-6 pb-6">
         <div className="size-[232px] mr-6 relative">
           <Image
             src={imgUrl}

@@ -51,10 +51,8 @@ const Search = () => {
   const router = useRouter();
   const { status } = useSession({
     required: true,
-    onUnauthenticated() {
-      
-    },
-    });
+    onUnauthenticated() {},
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -80,7 +78,7 @@ const Search = () => {
   }
   if (status === "authenticated") {
     return (
-      <div className={`grid gap-6 categoriesContainer relative px-6`}>
+      <div className={`grid gap-6 categoriesContainer relative px-6 mt-16`}>
         {categories.map((e: MyType, index) => (
           <Link
             href={`/category/${e.id}`}

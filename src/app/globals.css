@@ -10,10 +10,12 @@
 }
 body {
   background-color: black;
+  overflow-y: hidden;
 }
 html,
 :root,
 body {
+  height: 100vh;
 }
 :root {
   --panel-gap: 8px;
@@ -47,8 +49,8 @@ body {
   flex-direction: column;
 }
 
-.leftSideBlock > div:first-child,
-.leftSideBlock > div:nth-child(2) {
+.leftSideBlock > div > div:first-child,
+.leftSideBlock > div > div:nth-child(2) {
   border-radius: var(--panel-gap);
   background: var(--background-base);
   border: 0;
