@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import ArtistHeader from "./artistHeader";
 import TopTracks from "./topTracks";
 import { getColorByGenre } from "@/app/data/cardsData";
@@ -60,17 +60,9 @@ const page = ({ params }: { params: { artistId: string } }) => {
       );
     });
   };
-  if (
-    status === "loading" ||
-    artist.name.length < 1 ||
-    !topTracks.length ||
-    !albums.length
-  ) {
-    return <p>loading...</p>;
-  }
+
   return (
     <>
-      <title>{artist.name}</title>
       <div
         style={{
           backgroundColor: getColorByGenre(artist.genres[0]),
@@ -78,13 +70,16 @@ const page = ({ params }: { params: { artistId: string } }) => {
         }}
         className="bgMain top-0 z-[0] rounded-lg "
       ></div>
+
       <div className="relative mt-16 px-2">
         <ArtistHeader
           imgUrl={artist.images[0].url}
           artistName={artist?.name}
           followers={artist.followers.total}
         />
+
         <TopTracks topTracks={topTracks} />
+
         <div className="w-full px-4">
           <BrowseAllComponent
             title="Discography"

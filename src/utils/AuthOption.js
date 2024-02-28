@@ -46,13 +46,12 @@ async function refreshAccessToken(token) {
         ...token,
         access_token: data.access_token,
         refresh_token: data.refresh_token,
-        expires_in: Date.now() / 1000 + data.expires_in,
+        expires_in: Date.now() / 1000 + data.expires_in*1000,
       };
     });
 }
 
 export const authOptions = {
-  // Configure one or more authentication providers
   providers: [
     SpotifyProvider({
       clientId: process.env.CLIENT_ID,
@@ -68,7 +67,7 @@ export const authOptions = {
         return {
           ...token,
           access_token: account.access_token,
-          expires_in: account.expires_at,
+          expires_in: account?.expires_at ?? 0,
           refresh_token: account.refresh_token,
         };
       } else if (Date.now() / 1000 + 60 > token.expires_in) {
@@ -84,7 +83,6 @@ export const authOptions = {
       return token;
     },
     async session({ session, user, token, account }) {
-      // console.log("session callback", { session, token, user });
       return {
         ...session,
         expires_at: token.expires_in,

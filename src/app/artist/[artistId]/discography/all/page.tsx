@@ -25,8 +25,8 @@ const page = ({ params }: { params: { artistId: string } }) => {
 
   console.log(albumsData);
   return (
-    <div className="flex flex-col mx-6 min-h-[100vh] mt-[64px] ">
-      <h2 className="text-2xl font-bold">{albumsData[0].artists[0].name}</h2>
+    <div className="flex flex-col mt-16 mx-6 min-h-[100vh] ">
+      <h2 className="text-2xl  font-bold">{albumsData[0].artists[0].name}</h2>
       {albumsData.map((e: albumProp, index: number) => {
         return (
           <div key={index}>

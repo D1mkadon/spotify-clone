@@ -1,6 +1,6 @@
 import PlayButton from "@/app/components/PlayButton";
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 
 interface artistHeadProps {
   imgUrl: string;
@@ -11,16 +11,12 @@ interface artistHeadProps {
 const ArtistHeader = ({ imgUrl, artistName, followers }: artistHeadProps) => {
   return (
     <>
-      <div className="flex justify-start items-end z-[1] artistContainer relative bg-transparent mt-10 px-6 pb-6">
+      <div className="flex justify-start items-end z-[1] artistContainer relative bg-transparent px-6 pb-6">
         <div className="size-[232px] mr-6 relative">
-          <Image
+          <img
             src={imgUrl}
             alt=""
-            width={232}
-            height={232}
-            sizes=""
-            priority
-            className="rounded-full shadow-[0_4px_60px_rgba(0,0,0,.5)]"
+            className="rounded-full max-w-[232px] size-[232px] shadow-[0_4px_60px_rgba(0,0,0,.5)]"
           />
         </div>
         <div className="flex flex-col">
