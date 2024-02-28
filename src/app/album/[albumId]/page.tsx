@@ -18,6 +18,26 @@ const colors = [
   "rgb(240, 136, 96)",
   "rgb(176, 72, 128)",
 ];
+const getColorBySongsCount = (songs: number) => {
+  switch (true) {
+    case songs <= 2:
+      return colors[0];
+    case songs <= 5:
+      return colors[1];
+    case songs <= 8:
+      return colors[2];
+    case songs <= 11:
+      return colors[4];
+    case songs <= 14:
+      return colors[5];
+    case songs <= 17:
+      return colors[6];
+    case songs <= 20:
+      return colors[7];
+    default:
+      return colors[3];
+  }
+};
 const page = ({ params }: { params: { albumId: string } }) => {
   const [albumDuration, setAlbumDuration] = useState<number>(0);
   const [moreAlbums, setMoreAlbums] = useState<Array<albumProp>>([]);
@@ -59,7 +79,7 @@ const page = ({ params }: { params: { albumId: string } }) => {
           style={{
             background:
               "-webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(0,0,0,.5))),var(--background-noise)",
-            backgroundColor: colors[0],
+            backgroundColor: getColorBySongsCount(album.total_tracks),
             height: "400px",
           }}
           className="bgMain top-0 rounded left-0 z-[0] "
@@ -91,7 +111,7 @@ const page = ({ params }: { params: { albumId: string } }) => {
       <div className="relative">
         <div
           style={{
-            backgroundColor: colors[0],
+            backgroundColor: getColorBySongsCount(album.total_tracks),
             backgroundImage: "linear-gradient()",
             height: "232px",
             marginTop: 0,

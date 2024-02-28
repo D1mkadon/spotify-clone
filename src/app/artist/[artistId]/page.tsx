@@ -136,7 +136,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
           <TourSection />
           <BrowseAllComponent
             title="Appears on"
-            href={`/artist/${params.artistId}/related`}
+            href={`/artist/${params.artistId}/appears_on`}
           />
           <div className="musicSection">
             {!!appearsOn.length &&
