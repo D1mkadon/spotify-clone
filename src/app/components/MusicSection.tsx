@@ -59,7 +59,7 @@ const MusicSection = () => {
       axios
         .get("https://api.spotify.com/v1/browse/featured-playlists?limit=10", {
           headers: {
-            Authorization: "Bearer " + (session as sessionProps).access_token,
+            Authorization: "Bearer " + (session as sessionProps)?.access_token,
           },
         })
         .then((e) => setPlaylists(e.data.playlists.items))
@@ -67,7 +67,7 @@ const MusicSection = () => {
       axios
         .get("https://api.spotify.com/v1/browse/new-releases?limit=5", {
           headers: {
-            Authorization: "Bearer " + (session as sessionProps).access_token,
+            Authorization: "Bearer " + (session as sessionProps)?.access_token,
           },
         })
         .then((e) => {
@@ -77,7 +77,7 @@ const MusicSection = () => {
       axios
         .get("https://api.spotify.com/v1/me/player/recently-played?limit=10", {
           headers: {
-            Authorization: "Bearer " + (session as sessionProps).access_token,
+            Authorization: "Bearer " + (session as sessionProps)?.access_token,
           },
         })
         .then((e) => {

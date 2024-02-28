@@ -48,7 +48,7 @@ type MyType = {
 const Search = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
+
   const { status } = useSession({
     required: true,
     onUnauthenticated() {},

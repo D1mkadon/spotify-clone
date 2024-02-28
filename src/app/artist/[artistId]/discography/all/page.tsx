@@ -29,8 +29,8 @@ const page = ({ params }: { params: { artistId: string } }) => {
       <h2 className="text-2xl font-bold">{albumsData[0].artists[0].name}</h2>
       {albumsData.map((e: albumProp, index: number) => {
         return (
-          <>
-            <div key={index} className="p-8 flex">
+          <div key={index}>
+            <div className="p-8 flex">
               <img src={e.images[1].url} className="size-[132px]" alt="" />
               <div className="ml-6 text-[#b3b3b3] text-sm">
                 <h3 className="font-bold text-3xl text-white">{e.name}</h3>
@@ -70,9 +70,12 @@ const page = ({ params }: { params: { artistId: string } }) => {
                   height={16}
                 />
               </div>
-              {e.tracks.items.map((value: any) => {
+              {e.tracks.items.map((value: any, index: number) => {
                 return (
-                  <div className="flex justify-start items-center text-sm px-4 gap-4">
+                  <div
+                    key={index}
+                    className="flex justify-start items-center text-sm px-4 gap-4"
+                  >
                     <span className="flex justify-center items-center size-4">
                       {value.track_number}
                     </span>
@@ -85,7 +88,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
                 );
               })}
             </div>
-          </>
+          </div>
         );
       })}
     </div>

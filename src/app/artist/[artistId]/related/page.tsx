@@ -13,7 +13,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
 
   return (
     <div
-      className="musicSection px-6"
+      className="musicSection px-6 mt-16"
       style={{ gridAutoRows: "auto", gap: "24px" }}
     >
       {related.map((value: artistProp, index: number) => (

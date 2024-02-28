@@ -47,14 +47,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
     );
     fetchArtistAlbums(params.artistId, setAppearsOn, "appears_on");
   }, []);
-  if (
-    status === "loading" ||
-    artist.name.length < 1 ||
-    !topTracks.length ||
-    !albums.length
-  ) {
-    return <p>loading...</p>;
-  }
+
   const handleClick = async (value: string) => {
     fetchArtistAlbums(params.artistId, setAlbums, value);
   };
@@ -67,10 +60,17 @@ const page = ({ params }: { params: { artistId: string } }) => {
       );
     });
   };
-
+  if (
+    status === "loading" ||
+    artist.name.length < 1 ||
+    !topTracks.length ||
+    !albums.length
+  ) {
+    return <p>loading...</p>;
+  }
   return (
     <>
-      {/* <title>{artist.name}</title> */}
+      <title>{artist.name}</title>
       <div
         style={{
           backgroundColor: getColorByGenre(artist.genres[0]),
@@ -78,7 +78,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
         }}
         className="bgMain top-0 z-[0] rounded-lg "
       ></div>
-      <div className="relative px-2">
+      <div className="relative mt-16 px-2">
         <ArtistHeader
           imgUrl={artist.images[0].url}
           artistName={artist?.name}
