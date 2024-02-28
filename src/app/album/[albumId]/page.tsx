@@ -4,15 +4,20 @@ import BrowseAllComponent from "@/app/components/BrowseAllComponent";
 import MusicCard from "@/app/components/MusicCard";
 import PlayButton from "@/app/components/PlayButton";
 import PlaylistComponent from "@/app/components/PlaylistComponent";
-import {
-  fetchAlbumById,
-  fetchArtistAllAlbums,
-  millisToHoursAndMinutes,
-} from "@/app/data/fetchData";
+import { fetchAlbumById, millisToHoursAndMinutes } from "@/app/data/fetchData";
 import { albumProp } from "@/types/types";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-const colors = ["rgb(104, 152, 184)"];
+const colors = [
+  "rgb(104, 152, 184)",
+  "rgb(240, 200, 208)",
+  "rgb(232, 224, 224)",
+  "rgb(83, 83, 83)",
+  "rgb(192, 0, 24)",
+  "rgb(128, 136, 176)",
+  "rgb(240, 136, 96)",
+  "rgb(176, 72, 128)",
+];
 const page = ({ params }: { params: { albumId: string } }) => {
   const [albumDuration, setAlbumDuration] = useState<number>(0);
   const [moreAlbums, setMoreAlbums] = useState<Array<albumProp>>([]);

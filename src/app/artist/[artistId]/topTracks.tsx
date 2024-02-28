@@ -7,7 +7,7 @@ const TopTracks = ({ topTracks }: any) => {
   const [isShowMore, setIsShowMore] = useState(false);
 
   return (
-    <div className="px-4 z-[1] flex flex-col gap-3 items-start">
+    <div className="px-4 z-[1] flex relative flex-col gap-3 items-start">
       <h2 className="mb-4 font-bold text-2xl">Popular</h2>
       {topTracks
         .slice(0, isShowMore ? 10 : 5)

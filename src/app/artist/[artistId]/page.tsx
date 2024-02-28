@@ -19,7 +19,6 @@ import { albumProp, artistProp, TrackProp } from "@/types/types";
 import TourSection from "./TourSection";
 
 const page = ({ params }: { params: { artistId: string } }) => {
- 
   const [albums, setAlbums] = useState<Array<albumProp>>([]);
   const [appearsOn, setAppearsOn] = useState<Array<albumProp>>([]);
   const [found, setFound] = useState(false);
@@ -64,21 +63,32 @@ const page = ({ params }: { params: { artistId: string } }) => {
 
   return (
     <>
-      <div
-        style={{
-          backgroundColor: getColorByGenre(artist.genres[0]),
-          height: "582px",
-        }}
-        className="bgMain top-0 z-[0] rounded-lg "
-      ></div>
+      <div className="relative mt-16">
+        <div
+          style={{
+            background:
+              "-webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(0,0,0,.5))),var(--background-noise)",
+            backgroundColor: getColorByGenre(artist.genres[0]),
+            height: "400px",
+          }}
+          className="bgMain relative top-0 rounded left-0 z-[0] "
+        ></div>
 
-      <div className="relative mt-16 px-2">
         <ArtistHeader
           imgUrl={artist.images[0].url}
           artistName={artist?.name}
           followers={artist.followers.total}
         />
-
+        <div className="relative">
+          <div
+            style={{
+              backgroundColor: getColorByGenre(artist.genres[0]),
+              height: "232px",
+              marginTop: "-96px",
+            }}
+            className="bgMain absolute ] top-0 left-0 z-[0] rounded-lg "
+          ></div>
+        </div>
         <TopTracks topTracks={topTracks} />
 
         <div className="w-full px-4">

@@ -27,7 +27,7 @@ const ArtistHeader = ({ imgUrl, artistName, followers }: artistHeadProps) => {
           </p>
         </div>
       </div>
-      <div className="flex flex-row items-center w-full p-4">
+      <div className="flex flex-row items-center relative w-full p-4 z-[1]">
         <div className="mr-8">
           <PlayButton bg="#1ed760" MySize="56px" />
         </div>
