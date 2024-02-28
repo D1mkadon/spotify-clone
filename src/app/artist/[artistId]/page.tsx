@@ -15,14 +15,15 @@ import {
   fetchRelatedArtists,
   fetchTopArtistTracks,
 } from "@/app/data/fetchData";
-import { albumProp, artistProp, topTrackProp } from "@/types/types";
+import { albumProp, artistProp, TrackProp } from "@/types/types";
+import TourSection from "./TourSection";
 
 const page = ({ params }: { params: { artistId: string } }) => {
-  const { status } = useSession();
+ 
   const [albums, setAlbums] = useState<Array<albumProp>>([]);
   const [appearsOn, setAppearsOn] = useState<Array<albumProp>>([]);
   const [found, setFound] = useState(false);
-  const [topTracks, setTopTracks] = useState<topTrackProp[]>([]);
+  const [topTracks, setTopTracks] = useState<TrackProp[]>([]);
   const [relatedArtists, setRelatedArtists] = useState<artistProp[]>([]);
   const [artist, setArtist] = useState<artistProp>({
     name: "",
@@ -92,13 +93,14 @@ const page = ({ params }: { params: { artistId: string } }) => {
           />
           <div className="musicSection">
             {albums.map((value: albumProp, index: number) => (
-              <MusicCard
-                key={index}
-                nameProp={value.name}
-                descriptionProp={value.release_date.slice(0, 4)}
-                albumType={value.album_type}
-                imgProp={value.images[1].url}
-              />
+              <Link href={`/album/${value.id}`} key={index}>
+                <MusicCard
+                  nameProp={value.name}
+                  descriptionProp={value.release_date.slice(0, 4)}
+                  albumType={value.album_type}
+                  imgProp={value.images[1].url}
+                />
+              </Link>
             ))}
           </div>
           <BrowseAllComponent
@@ -116,6 +118,12 @@ const page = ({ params }: { params: { artistId: string } }) => {
               </Link>
             ))}
           </div>
+          <BrowseAllComponent
+            title="On Tour"
+            browseTitle="View all upcoming concerts"
+            href={`/artist/${params.artistId}/related`}
+          />
+          <TourSection />
           <BrowseAllComponent
             title="Appears on"
             href={`/artist/${params.artistId}/related`}

@@ -12,21 +12,19 @@ const page = ({ params }: { params: { artistId: string } }) => {
   }, []);
 
   return (
-    <div className="min-h-[100vh] mt-16">
-      <div
-        className="musicSection px-6"
-        style={{ gridAutoRows: "auto", gap: "24px" }}
-      >
-        {related.map((value: artistProp, index: number) => (
-          <Link href={`/artist/${value.id}`} key={index}>
-            <MusicCard
-              imgProp={value.images[0].url}
-              nameProp={value.name}
-              albumType={value.type}
-            />
-          </Link>
-        ))}
-      </div>
+    <div
+      className="musicSection pt-16 px-6"
+      style={{ gridAutoRows: "auto", gap: "24px" }}
+    >
+      {related.map((value: artistProp, index: number) => (
+        <Link href={`/artist/${value.id}`} key={index}>
+          <MusicCard
+            imgProp={value.images[0].url}
+            nameProp={value.name}
+            albumType={value.type}
+          />
+        </Link>
+      ))}
     </div>
   );
 };

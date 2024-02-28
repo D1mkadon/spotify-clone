@@ -27,17 +27,24 @@ export interface albumProp {
   album_type: string;
   album_group: string;
   description?: string;
+  copyrights?: {text:string,type:string}[];
   total_tracks: number;
   id: string;
   tracks: {
-    items: { duration_ms: number; name: string; track_number: number }[];
+    items: TrackProp[];
   };
-  artists: [{ name: string }];
+  artists: {
+    id: string;
+    name: string;
+  }[];
 }
-export type topTrackProp = {
+export type TrackProp = {
   name: string;
   duration_ms: number;
+  track_number: number;
+  id: string;
   album: { images: { url: string }[] };
+  artists: { id: string; name: string }[];
 };
 export interface itemProp {
   collaborative: boolean;

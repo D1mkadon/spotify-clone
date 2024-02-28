@@ -91,7 +91,9 @@ header {
   backdrop-filter: blur(1px);
   background-color: --background-base;
 }
-
+ul {
+  list-style-type: none;
+}
 .MusicContainer {
   @apply flex px-6;
   flex-flow: row wrap;
@@ -183,6 +185,7 @@ header {
     )
     [var1] minmax(120px, var(--col2, 2fr)) [last] minmax(120px, var(--col3, 1fr));
 }
+
 .artistContainer {
   --fluid-height: clamp(
     250px,

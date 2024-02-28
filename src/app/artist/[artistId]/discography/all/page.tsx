@@ -1,10 +1,10 @@
 "use client";
-import { fetchArtistAllAlbums } from "@/app/data/fetchData";
+import  { fetchArtistAllAlbums } from "@/app/data/fetchData";
 import { albumProp } from "@/types/types";
 import { useEffect, useState } from "react";
-import { millisToMinutesAndSeconds } from "../../topTracks";
 import Image from "next/image";
 import PlayButton from "@/app/components/PlayButton";
+import PlaylistComponent from "@/app/components/PlaylistComponent";
 
 const page = ({ params }: { params: { artistId: string } }) => {
   const [albumsData, setAlbumsData] = useState<Array<albumProp>>([]);
@@ -59,35 +59,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
                 </div>
               </div>
             </div>
-            <div className="px-8 text-[#b3b3b3]">
-              <div className="flex px-4 border-b h-[36px] mb-4 border-b-[hsla(0,0%,100%,.1)] gap-4">
-                <p className="text-base">#</p>
-                <p className="mr-auto text-sm"> Title</p>
-                <Image
-                  src={"/clock.svg"}
-                  alt="clockIcon"
-                  width={16}
-                  height={16}
-                />
-              </div>
-              {e.tracks.items.map((value: any, index: number) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex justify-start items-center text-sm px-4 gap-4"
-                  >
-                    <span className="flex justify-center items-center size-4">
-                      {value.track_number}
-                    </span>
-                    <div className="mr-auto">
-                      <p className="text-white">{value.name}</p>
-                      <p className="text-[#b3b3b3]">{value.artists[0].name}</p>
-                    </div>
-                    <p>{millisToMinutesAndSeconds(value.duration_ms)}</p>
-                  </div>
-                );
-              })}
-            </div>
+            <PlaylistComponent arrProp={e.tracks.items} />
           </div>
         );
       })}

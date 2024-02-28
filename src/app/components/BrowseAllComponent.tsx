@@ -4,9 +4,11 @@ import React from "react";
 const BrowseAllComponent = ({
   title,
   href,
+  browseTitle,
 }: {
   title: string;
   href: string;
+  browseTitle?: string;
 }) => {
   return (
     <div className="flex relative justify-between items-center w-full my-4 font-bold h-[30px]">
@@ -22,7 +24,9 @@ const BrowseAllComponent = ({
         className="hover:underline text-[#B3b3b3]"
         scroll={true}
       >
-        <span className="ml-2 mt-[2px] text-[13px]"> Show all</span>
+        <span className="ml-2 mt-[2px] text-[13px]">
+          {browseTitle ? browseTitle : "Show all"}
+        </span>
       </Link>
     </div>
   );

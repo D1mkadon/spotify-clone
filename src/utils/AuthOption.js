@@ -41,12 +41,13 @@ async function refreshAccessToken(token) {
     .then((e) => e.json())
     .then((data) => {
       console.log("answer from server on refresh token", data);
+      console.log("b4 answer from server token", token);
 
       return {
         ...token,
         access_token: data.access_token,
         refresh_token: data.refresh_token,
-        expires_in: Date.now() / 1000 + data.expires_in*1000,
+        expires_in: Date.now() / 1000 + (data.expires_in ?? 3600),
       };
     });
 }
@@ -77,8 +78,8 @@ export const authOptions = {
           Date.now() / 1000 + 60 > token.expires_in
         );
         console.log("needs to refresh token - ", token);
-        refreshAccessToken(token);
-        return token;
+
+        return await refreshAccessToken(token);
       }
       return token;
     },
