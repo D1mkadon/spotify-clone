@@ -8,7 +8,7 @@ const PlayButton = ({
 }: {
   bg: string;
   MySize: string;
-  handleClick: any;
+  handleClick: () => void;
 }) => {
   return (
     <button

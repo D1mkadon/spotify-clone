@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { TrackProp } from "@/types/types";
 import millisToTime from "@/app/data/fetchData";
+import Triangle from "@/app/data/Icons/triangle";
+import state from "@/store";
 
 const TopTracks = ({ topTracks }: any) => {
   const [isShowMore, setIsShowMore] = useState(false);
-
+  const handleClick = (e: TrackProp) => {
+    state.trackID = e.id;
+  };
   return (
     <div className="px-4 z-[1] flex relative flex-col gap-3 items-start">
       <h2 className="mb-4 font-bold text-2xl">Popular</h2>
@@ -14,11 +18,17 @@ const TopTracks = ({ topTracks }: any) => {
         .map((e: TrackProp, index: number) => (
           <div
             key={index}
-            className="topTrackBox grid h-[56px] px-4 gap-4 w-full items-center text-[#B3B3B3]"
+            className="topTrackBox group grid h-[56px] px-4 gap-4 w-full items-center text-[#B3B3B3] hover:bg-white/10"
           >
-            <p className="w-4 h-4 flex items-center justify-center">
+            <p className="w-4 h-4 flex items-center justify-center group-hover:hidden">
               {index + 1}
             </p>
+            <button
+              onClick={() => handleClick(e)}
+              className="w-4 h-4 hidden items-center justify-center group-hover:flex"
+            >
+              <Triangle className="text-white" />
+            </button>
             <div className="flex justify-start items-center text-white">
               <Image
                 src={e.album.images[0].url}

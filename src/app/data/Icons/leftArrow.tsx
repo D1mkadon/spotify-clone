@@ -1,6 +1,4 @@
-import { iconProps } from "./plus";
-
-export default function ReftArrow({ className }: iconProps) {
+export default function ReftArrow({ className }: { className: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

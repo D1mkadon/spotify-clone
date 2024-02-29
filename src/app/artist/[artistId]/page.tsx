@@ -80,6 +80,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
           imgUrl={artist.images[0].url}
           artistName={artist?.name}
           followers={artist.followers.total}
+          topTracks={topTracks}
         />
         <div className="relative">
           <div
