@@ -41,7 +41,7 @@ export const fetchArtist = async (
   axios
     .get(`https://api.spotify.com/v1/artists/${id}`, {
       headers: {
-        Authorization: "Bearer " + (session as sessionProps).access_token,
+        Authorization: "Bearer " + session?.access_token,
       },
     })
     .then((e) => {
@@ -58,7 +58,7 @@ export const fetchTopArtistTracks = async (
   await axios
     .get(`https://api.spotify.com/v1/artists/${id}/top-tracks?market=ES`, {
       headers: {
-        Authorization: "Bearer " + (session as sessionProps).access_token,
+        Authorization: "Bearer " + session?.access_token,
       },
     })
     .then((e) => {
@@ -74,12 +74,11 @@ export const fetchRelatedArtists = async (
   await axios
     .get(`https://api.spotify.com/v1/artists/${id}/related-artists`, {
       headers: {
-        Authorization: "Bearer " + (session as sessionProps).access_token,
+        Authorization: "Bearer " + session?.access_token,
       },
     })
     .then((e) => {
       setRelatedArtists(e.data.artists);
-      // console.log("related artists", e.data);
     })
     .catch((e) => console.log(e));
 };
@@ -95,7 +94,7 @@ export const fetchArtistAlbums = async (
       `https://api.spotify.com/v1/artists/${id}/albums?market=ES&offset=0&include_groups=${includeGroups}`,
       {
         headers: {
-          Authorization: "Bearer " + (session as sessionProps).access_token,
+          Authorization: "Bearer " + session?.access_token,
         },
       }
     )
@@ -130,7 +129,7 @@ export const fetchArtistAllAlbums = async (
       method: "GET",
       cache: "no-cache",
       headers: {
-        Authorization: "Bearer " + (session as sessionProps).access_token,
+        Authorization: "Bearer " + session?.access_token,
       },
     }
   )
@@ -142,7 +141,7 @@ export const fetchArtistAllAlbums = async (
       ids = ids.replace(/,(?=\s*$)/g, "");
       return fetch(`https://api.spotify.com/v1/albums?ids=${ids}&market=ES`, {
         headers: {
-          Authorization: "Bearer " + (session as sessionProps).access_token,
+          Authorization: "Bearer " + session?.access_token,
         },
         method: "GET",
         cache: "no-cache",
@@ -164,7 +163,7 @@ export const fetchAlbumById = async (
   await fetch(`https://api.spotify.com/v1/albums/${id}?market=ES`, {
     method: "GET",
     headers: {
-      Authorization: "Bearer " + (session as sessionProps).access_token,
+      Authorization: "Bearer " + session?.access_token,
     },
   })
     .then((e) => e.json())
@@ -178,7 +177,7 @@ export const fetchAlbumById = async (
         {
           method: "GET",
           headers: {
-            Authorization: "Bearer " + (session as sessionProps).access_token,
+            Authorization: "Bearer " + session?.access_token,
           },
         }
       )

@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
-
+import { NextAuthOptions } from "next-auth";
 const scopes = [
   "streaming",
   "user-read-email",
@@ -23,7 +23,7 @@ const LOGIN_URL =
   "https://accounts.spotify.com/authorize?" +
   new URLSearchParams(params).toString();
 
-async function refreshAccessToken(token) {
+async function refreshAccessToken(token: any) {
   console.log("refresh token log", token.refresh_token);
 
   await fetch("https://accounts.spotify.com/api/token", {
@@ -33,8 +33,8 @@ async function refreshAccessToken(token) {
       "content-type": "application/x-www-form-urlencoded",
       Authorization:
         "Basic " +
-        new Buffer.from(
-          process.env.CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET
+        Buffer.from(
+          `${process.env.CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
         ).toString("base64"),
     },
   })
@@ -47,23 +47,23 @@ async function refreshAccessToken(token) {
         ...token,
         access_token: data.access_token,
         refresh_token: data.refresh_token,
-        expires_in: Date.now() / 1000 + (data.expires_in ?? 3600),
+        expires_in: Date.now() / 1000 + data.expires_in,
       };
     });
 }
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     SpotifyProvider({
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      clientId: process.env.CLIENT_ID as string,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET as string,
       authorization: LOGIN_URL,
     }),
     // ...add more providers here
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account }) {
+    jwt({ token, user, account }: { token: any; user: any; account: any }) {
       if (account && user) {
         return {
           ...token,
@@ -72,25 +72,18 @@ export const authOptions = {
           refresh_token: account.refresh_token,
         };
       } else if (Date.now() / 1000 + 60 > token.expires_in) {
-        console.log(
-          Date.now() / 1000,
-          token.expires_in,
-          Date.now() / 1000 + 60 > token.expires_in
-        );
         console.log("needs to refresh token - ", token);
-
-        return await refreshAccessToken(token);
+        return refreshAccessToken(token);
       }
       return token;
     },
-    async session({ session, user, token, account }) {
-      return {
-        ...session,
-        expires_at: token.expires_in,
-        id: token.id,
-        access_token: token.access_token,
-        refresh_token: token.refresh_token,
-      };
+    session({ session, token }) {
+      session.expires_at = token.expires_in,
+      session.id = token.id,
+      session.access_token = token.access_token,
+      session.refresh_token = token.refresh_token;
+      console.log("session", session);
+      return session;
     },
   },
 };

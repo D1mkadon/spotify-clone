@@ -60,7 +60,9 @@ const page = ({ params }: { params: { artistId: string } }) => {
       );
     });
   };
-
+  if (!artist?.name) {
+    return <p>loading...</p>;
+  }
   return (
     <>
       <div className="relative mt-16">
