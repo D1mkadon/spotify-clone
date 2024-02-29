@@ -1,5 +1,5 @@
 "use client";
-import  { fetchArtistAllAlbums } from "@/app/data/fetchData";
+import { fetchArtistAllAlbums } from "@/app/data/fetchData";
 import { albumProp } from "@/types/types";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -22,7 +22,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
   if (albumsData.length < 1) {
     return <div className="flex justify-center items-center">loading</div>;
   }
-
+  const handleClick = () => {};
   console.log(albumsData);
   return (
     <div className="flex flex-col mt-16 mx-6 min-h-[100vh] ">
@@ -44,7 +44,11 @@ const page = ({ params }: { params: { artistId: string } }) => {
                   <p className="capitalize">{e.total_tracks} songs</p>
                 </div>
                 <div className="flex items-center mt-7 h-[48px] gap-4">
-                  <PlayButton bg="#ffffff" MySize="32px" />
+                  <PlayButton
+                    bg="#ffffff"
+                    MySize="32px"
+                    handleClick={handleClick}
+                  />
                   <button className="hover:scale-[1.04] opacity-40 hover:opacity-100">
                     <Image src={"/heart.svg"} alt="/" width={24} height={24} />
                   </button>
