@@ -1,4 +1,17 @@
+"use client";
+import { getSession, useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import PlayButton from "./PlayButton";
+import MyPlayer from "./MyPlayer";
+import Player from "./Player";
+
 const BottomBlock = () => {
+  const { data: session, status } = useSession();
+  if (status === "authenticated") {
+    // return <Player/>
+    return <MyPlayer />;
+  }
   return (
     <a
       href="/"

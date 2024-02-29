@@ -41,14 +41,11 @@ async function refreshAccessToken(token: any) {
     .then((e) => e.json())
     .then((data) => {
       console.log("answer from server on refresh token", data);
-      console.log("b4 answer from server token", token);
-
-      return {
-        ...token,
-        access_token: data.access_token,
-        refresh_token: data.refresh_token,
-        expires_in: Date.now() / 1000 + data.expires_in,
-      };
+      (token.access_token = data.access_token),
+        (token.refresh_token = data.refresh_token),
+        (token.expires_in = Date.now() / 1000 + data.expires_in),
+        console.log("after answer from server token", token);
+      return token;
     });
 }
 
@@ -63,7 +60,15 @@ export const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    jwt({ token, user, account }: { token: any; user: any; account: any }) {
+    async jwt({
+      token,
+      user,
+      account,
+    }: {
+      token: any;
+      user: any;
+      account: any;
+    }) {
       if (account && user) {
         return {
           ...token,
@@ -73,16 +78,16 @@ export const authOptions: NextAuthOptions = {
         };
       } else if (Date.now() / 1000 + 60 > token.expires_in) {
         console.log("needs to refresh token - ", token);
-        return refreshAccessToken(token);
+        return await refreshAccessToken(token);
       }
       return token;
     },
     session({ session, token }) {
-      session.expires_at = token.expires_in,
-      session.id = token.id,
-      session.access_token = token.access_token,
-      session.refresh_token = token.refresh_token;
-      console.log("session", session);
+      (session.expires_at = token.expires_in),
+        (session.id = token.id),
+        (session.access_token = token.access_token),
+        (session.refresh_token = token.refresh_token);
+
       return session;
     },
   },

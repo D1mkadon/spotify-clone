@@ -1,9 +1,18 @@
 import Image from "next/image";
 import React from "react";
 
-const PlayButton = ({ bg, MySize }: { bg: string; MySize: string }) => {
+const PlayButton = ({
+  bg,
+  MySize,
+  handleClick,
+}: {
+  bg: string;
+  MySize: string;
+  handleClick: any;
+}) => {
   return (
     <button
+      onClick={handleClick}
       style={{
         background: bg,
         width: MySize,

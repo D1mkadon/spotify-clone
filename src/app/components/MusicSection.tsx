@@ -47,6 +47,7 @@ interface RecentlyProp {
 const MusicSection = () => {
   const [playlists, setPlaylists] = useState([]);
   const [songs, setSongs] = useState([]);
+  const [spotifyPlaylists, setSpotifyPlaylists] = useState([]);
   const [recentlyPlayed, setRecentlyPlayed] = useState<RecentlyProp[]>([]);
   const { status } = useSession({
     required: true,
@@ -57,17 +58,20 @@ const MusicSection = () => {
     const fetchData = async () => {
       const session = await getSession();
       axios
-        .get("https://api.spotify.com/v1/browse/featured-playlists?limit=10", {
-          headers: {
-            Authorization: "Bearer " + (session as sessionProps)?.access_token,
-          },
-        })
+        .get(
+          "https://api.spotify.com/v1/browse/featured-playlists?limit=10&offset=7",
+          {
+            headers: {
+              Authorization: "Bearer " + session?.access_token,
+            },
+          }
+        )
         .then((e) => setPlaylists(e.data.playlists.items))
         .catch((e) => console.log("catched ", e));
       axios
         .get("https://api.spotify.com/v1/browse/new-releases?limit=5", {
           headers: {
-            Authorization: "Bearer " + (session as sessionProps)?.access_token,
+            Authorization: "Bearer " + session?.access_token,
           },
         })
         .then((e) => {
@@ -77,7 +81,7 @@ const MusicSection = () => {
       axios
         .get("https://api.spotify.com/v1/me/player/recently-played?limit=10", {
           headers: {
-            Authorization: "Bearer " + (session as sessionProps)?.access_token,
+            Authorization: "Bearer " + session?.access_token,
           },
         })
         .then((e) => {
@@ -89,6 +93,22 @@ const MusicSection = () => {
           setRecentlyPlayed(getUniqueListBy(e.data.items));
         })
         .catch((e) => console.log(e));
+      axios
+        .get(
+          "https://api.spotify.com/v1/users/spotify/playlists?limit=10&offset=0",
+          {
+            headers: {
+              Authorization:
+                "Bearer " + (session as sessionProps)?.access_token,
+            },
+          }
+        )
+        .then((e) => {
+          setSpotifyPlaylists(e.data.items);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     };
     fetchData();
   }, []);
@@ -116,9 +136,20 @@ const MusicSection = () => {
               </div>
             </>
           )}
+          <BrowseAllComponent title="Spotify Playlists" href="/" />
+          <div className="musicSection">
+            {spotifyPlaylists?.map((e: albumProp, index) => (
+              <MusicCard
+                key={index}
+                imgProp={e.images[0].url}
+                nameProp={e.name}
+                descriptionProp={e.description}
+              />
+            ))}
+          </div>
           {playlists.length ? (
             <>
-              <BrowseAllComponent title="Spotify Playlists" href="/" />
+              <BrowseAllComponent title="Popular Playlists" href="/" />
 
               <div className="musicSection">
                 {playlists?.map((e: albumProp, index) => (

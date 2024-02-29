@@ -27,7 +27,7 @@ export interface albumProp {
   album_type: string;
   album_group: string;
   description?: string;
-  copyrights?: {text:string,type:string}[];
+  copyrights?: { text: string; type: string }[];
   total_tracks: number;
   id: string;
   tracks: {
@@ -70,4 +70,9 @@ export interface itemProp {
 export interface categoryDataProps {
   message?: "Hip-Hop";
   playlists?: {};
+}
+export interface playbackProp {
+  actions: { dissallows: { pausing: boolean } };
+  progress_ms: number;
+  item: TrackProp;
 }

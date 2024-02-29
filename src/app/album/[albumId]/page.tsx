@@ -8,6 +8,8 @@ import { fetchAlbumById, millisToHoursAndMinutes } from "@/app/data/fetchData";
 import { albumProp } from "@/types/types";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useSnapshot } from "valtio";
+import state from "@/store/index";
 const colors = [
   "rgb(104, 152, 184)",
   "rgb(240, 200, 208)",
@@ -39,6 +41,7 @@ const getColorBySongsCount = (songs: number) => {
   }
 };
 const page = ({ params }: { params: { albumId: string } }) => {
+  const snap = useSnapshot(state);
   const [albumDuration, setAlbumDuration] = useState<number>(0);
   const [moreAlbums, setMoreAlbums] = useState<Array<albumProp>>([]);
   const [album, setAlbum] = useState<albumProp>({
@@ -67,10 +70,12 @@ const page = ({ params }: { params: { albumId: string } }) => {
   useEffect(() => {
     fetchAlbumById(params.albumId, setAlbum, setAlbumDuration, setMoreAlbums);
   }, []);
-
   if (!album.name.length) {
     return <p>loading</p>;
   }
+  const handleClick = () => {
+    state.trackID = album.tracks.items[0].id;
+  };
 
   return (
     <div className="mt-16 relative min-h-[100vh] text-white text-4xl">
@@ -121,7 +126,7 @@ const page = ({ params }: { params: { albumId: string } }) => {
       </div>
       <div className="flex relative flex-row items-center w-full p-4">
         <div className="mr-8">
-          <PlayButton bg="#1ed760" MySize="56px" />
+          <PlayButton bg="#1ed760" MySize="56px" handleClick={handleClick} />
         </div>
 
         <button className="mr-4 py-[3px] px-[15px] text-sm rounded-full font-bold bg-transparent box-border cursor-pointer inline-flex hover:scale-[1.04] items-center justify-center border border-[#878787] hover:border-white">

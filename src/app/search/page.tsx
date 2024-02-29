@@ -1,13 +1,10 @@
 "use client";
 import { sessionProps } from "@/types/types";
 import axios from "axios";
-import { Session } from "next-auth";
-
 import { useSession } from "next-auth/react";
 import { getSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function generateMidtoneColor() {
@@ -62,7 +59,7 @@ const Search = () => {
       await axios
         .get("https://api.spotify.com/v1/browse/categories?limit=30", {
           headers: {
-            Authorization: "Bearer " + (session as sessionProps)?.access_token,
+            Authorization: "Bearer " + session?.access_token,
           },
         })
         .then((e) => {

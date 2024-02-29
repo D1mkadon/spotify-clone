@@ -8,12 +8,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Profile = ({ user }: any) => {
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      
-    },
-    });
   const [isVisible, setIsVisible] = useState(false);
   const dropdownRef = useRef<HTMLButtonElement>(null);
   const dropDownContent = useRef<HTMLDivElement>(null);

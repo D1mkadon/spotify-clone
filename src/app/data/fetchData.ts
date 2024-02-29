@@ -4,6 +4,7 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 
 import { Dispatch, SetStateAction } from "react";
+// functions for time
 export default function millisToTime(millis: number): string {
   const hours: number = Math.floor(millis / 3600000);
   const remainingMillisWithoutHours: number = millis % 3600000;
@@ -33,6 +34,7 @@ export function millisToHoursAndMinutes(millis: number): string {
 
   return result.trim();
 }
+// api calls for artists and albums
 export const fetchArtist = async (
   id: string,
   setArtist: (value: artistProp) => void
@@ -113,8 +115,6 @@ export const fetchArtistAlbums = async (
     })
     .catch((e) => console.log(e));
 };
-//all
-
 export const fetchArtistAllAlbums = async (
   id: string,
   setData: any,
@@ -188,4 +188,42 @@ export const fetchAlbumById = async (
     })
 
     .catch((e) => console.log(e));
+};
+// playback fetches
+
+export const fetchPlaybackState = async (setState: any) => {
+  const session = await getSession();
+  axios
+    .get("https://api.spotify.com/v1/me/player", {
+      headers: {
+        Authorization: "Bearer " + session?.access_token,
+      },
+    })
+    .then((e) => {
+      setState(e.data);
+    });
+};
+export const fetchSongInfo = async (id: string, setState: any) => {
+  const session = await getSession();
+  axios
+    .get(`https://api.spotify.com/v1/tracks/${id}`, {
+      headers: {
+        Authorization: "Bearer " + session?.access_token,
+      },
+    })
+    .then((e) => {
+      setState(e.data);
+    });
+};
+export const fetchCurrentlyPlay = async (setState: any) => {
+  const session = await getSession();
+  axios
+    .get(`https://api.spotify.com/v1/me/player/currently-playing?market=ES`, {
+      headers: {
+        Authorization: "Bearer " + session?.access_token,
+      },
+    })
+    .then((e) => {
+      setState(e.data);
+    });
 };

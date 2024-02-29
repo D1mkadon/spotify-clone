@@ -8,7 +8,7 @@ interface isVisibleProp {
 const Header = ({ isScrolled }: isVisibleProp) => {
   return (
     <header
-      className={`box-border h-16 sticky top-0 flex w-full items-center gap-2 justify-between py-4 px-6 z-[2] transition-[background-color] ease-in-out duration-300 ${
+      className={`box-border h-16 sticky left-0 top-0 flex w-full items-center gap-2 justify-between py-4 px-6 z-[2] transition-[background-color] ease-in-out duration-300 ${
         isScrolled ? "bg-[#121212]" : "bg-transparent"
       }  `}
     >
