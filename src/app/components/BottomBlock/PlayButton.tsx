@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { useSnapshot } from "valtio";
 
-const PlayButton = ({
+const PlayBottomButton = ({
   bg,
   MySize,
   handleClick,
@@ -23,9 +23,14 @@ const PlayButton = ({
       }}
       className={`flex justify-center items-center bg-[##1ed760] size-14 rounded-full hover:scale-[1.04]`}
     >
-      <Image src={"/triangle.svg"} alt="/" width={24} height={24} />
+      <Image
+        src={!state.isPlaying ? "/triangle.svg" : "/paused.svg"}
+        alt="/"
+        width={24}
+        height={24}
+      />
     </button>
   );
 };
 
-export default PlayButton;
+export default PlayBottomButton;

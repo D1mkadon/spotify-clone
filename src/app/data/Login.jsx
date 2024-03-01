@@ -1,7 +1,6 @@
 "use client";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Profile from "../components/Profile/Profile";
 
 const Login = () => {

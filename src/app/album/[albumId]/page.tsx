@@ -10,6 +10,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import state from "@/store/index";
+import { useSession } from "next-auth/react";
 const colors = [
   "rgb(104, 152, 184)",
   "rgb(240, 200, 208)",
@@ -41,6 +42,7 @@ const getColorBySongsCount = (songs: number) => {
   }
 };
 const page = ({ params }: { params: { albumId: string } }) => {
+  const { data: session } = useSession();
   const snap = useSnapshot(state);
   const [albumDuration, setAlbumDuration] = useState<number>(0);
   const [moreAlbums, setMoreAlbums] = useState<Array<albumProp>>([]);
@@ -63,6 +65,7 @@ const page = ({ params }: { params: { albumId: string } }) => {
           id: "",
           album: { images: [{ url: "" }] },
           artists: [{ id: "", name: "" }],
+          uri: "",
         },
       ],
     },
@@ -73,8 +76,24 @@ const page = ({ params }: { params: { albumId: string } }) => {
   if (!album.name.length) {
     return <p>loading</p>;
   }
-  const handleClick = () => {
+  const handleClick = async () => {
     state.trackID = album.tracks.items[0].id;
+    state.isPlaying = true;
+    if (session && session.access_token) {
+      // const response = await fetch(
+      //   "https://api.spotify.com/v1/me/player/play",
+      //   {
+      //     method: "PUT",
+      //     headers: {
+      //       Authorization: `Bearer ${session.access_token}`,
+      //     },
+      //     body: JSON.stringify({
+      //       uris: [track.uri],
+      //     }),
+      //   }
+      // );
+      // console.log("on play", response.status);
+    }
   };
 
   return (

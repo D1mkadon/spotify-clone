@@ -20,6 +20,7 @@ const ArtistHeader = ({
   const snap = useSnapshot(state);
   const handleClick = () => {
     state.trackID = topTracks[0].id;
+    state.isPlaying = true;
   };
   return (
     <>

@@ -4,11 +4,30 @@ import { TrackProp } from "@/types/types";
 import millisToTime from "@/app/data/fetchData";
 import Triangle from "@/app/data/Icons/triangle";
 import state from "@/store";
+import { useSession } from "next-auth/react";
 
 const TopTracks = ({ topTracks }: any) => {
   const [isShowMore, setIsShowMore] = useState(false);
-  const handleClick = (e: TrackProp) => {
+  const { data: session } = useSession();
+  const handleClick = async (e: TrackProp) => {
     state.trackID = e.id;
+    state.isPlaying = true;
+    if (session && session.access_token) {
+      const response = await fetch(
+        "https://api.spotify.com/v1/me/player/play",
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({
+            uris: [e.uri],
+          }),
+        }
+      );
+      console.log("e.uri", e.uri);
+      console.log("on play", response.status);
+    }
   };
   return (
     <div className="px-4 z-[1] flex relative flex-col gap-3 items-start">

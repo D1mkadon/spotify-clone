@@ -1,3 +1,4 @@
+import state from "@/store";
 import { albumProp, artistProp, sessionProps, TrackProp } from "@/types/types";
 import axios from "axios";
 
@@ -224,6 +225,10 @@ export const fetchCurrentlyPlay = async (setState: any) => {
       },
     })
     .then((e) => {
-      setState(e.data);
+      setState(e.data.item);
+      console.log(e.data.item);
+      if (e.data.is_playing) {
+        state.isPlaying = true;
+      }
     });
 };

@@ -45,6 +45,7 @@ export type TrackProp = {
   id: string;
   album: { images: { url: string }[] };
   artists: { id: string; name: string }[];
+  uri: string;
 };
 export interface itemProp {
   collaborative: boolean;

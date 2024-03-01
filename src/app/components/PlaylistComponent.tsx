@@ -9,7 +9,8 @@ import { useSnapshot } from "valtio";
 const PlaylistComponent = ({ arrProp }: { arrProp: Array<TrackProp> }) => {
   const snap = useSnapshot(state);
   const handleClick = (value: TrackProp) => {
-    return (state.trackID = value.id);
+    state.trackID = value.id;
+    state.isPlaying = true;
   };
   return (
     <div className="px-8 text-[#b3b3b3]">

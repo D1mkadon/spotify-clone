@@ -1,39 +1,45 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import PlayButton from "./PlayButton";
+
 import Link from "next/link";
 import millisToTime, {
   fetchCurrentlyPlay,
   fetchSongInfo,
-} from "../data/fetchData";
-import { TrackProp, playbackProp } from "@/types/types";
+} from "../../data/fetchData";
+import { TrackProp } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { useSnapshot } from "valtio";
 import state from "@/store";
+import PlayBottomButton from "./PlayButton";
 
 const MyPlayer = () => {
   const snap = useSnapshot(state);
   const { data: session } = useSession();
-  const [playback, setPlayback] = useState<playbackProp>();
   const [track, setTrack] = useState<TrackProp>();
   useEffect(() => {
     //fetch song details and play song
     async function f() {
       if (session?.access_token && session) {
         if (!snap.trackID.length) {
-          fetchCurrentlyPlay(setTrack);
+          console.log("!snap.trackID.length", !snap.trackID.length);
+          return await fetchCurrentlyPlay(setTrack);
+
           //get the currently playing song from spotify
         } else {
           //get song info
-          fetchSongInfo(snap.trackID, setTrack);
+          console.log("else");
+          return await fetchSongInfo(snap.trackID, setTrack);
         }
       }
     }
     f();
     console.log("track", track);
-    console.log("playback", playback);
   }, [snap.trackID]);
-  const handleClick = () => {};
+  const handleClick = () => {
+    state.isPlaying = !state.isPlaying;
+    console.log(state.isPlaying);
+    //pause unpause
+  };
   return (
     <div className="col-span-2 sticky bottom-2 flex justify-between items-center h-[57px] w-full flex-row z-[1]   bg-transparent">
       <div className="w-[30%] min-w-[180px] flex h-full items-center justify-start relative pl-2">
@@ -50,7 +56,10 @@ const MyPlayer = () => {
         )}
         <div className="text-white flex flex-col mx-2">
           {track?.name && (
-            <Link href="" className="hover:underline cursor-pointer text-sm">
+            <Link
+              href=""
+              className="hover:underline line-clamp-1 cursor-pointer text-sm"
+            >
               {track?.name}
             </Link>
           )}
@@ -78,7 +87,12 @@ const MyPlayer = () => {
                 <Image src={"/previous.svg"} alt="" width={16} height={16} />
               </button>
             </div>
-            <PlayButton bg="#fff" MySize={"32px"} handleClick={handleClick} />
+            <PlayBottomButton
+              bg="#fff"
+              MySize={"32px"}
+              handleClick={handleClick}
+            />
+
             <div className="flex gap-2 flex-[1]">
               <button className="size-8">
                 <Image src={"/next.svg"} alt="" width={16} height={16} />
@@ -90,9 +104,9 @@ const MyPlayer = () => {
           </div>
           <div className="w-full flex-row gap-2 items-center justify-between flex text-[#a7a7a7] text-[0.75rem]">
             <div className="min-w-10 text-right">
-              {playback?.progress_ms
+              {/* {playback?.progress_ms
                 ? millisToTime(playback?.progress_ms)
-                : "0:00"}
+                : "0:00"} */}
             </div>
             <div className="h-3 w-full relative"></div>
             <div className="min-w-10 text-left">

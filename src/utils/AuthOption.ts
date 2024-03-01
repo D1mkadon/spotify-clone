@@ -24,9 +24,9 @@ const LOGIN_URL =
   new URLSearchParams(params).toString();
 
 async function refreshAccessToken(token: any) {
-  console.log("refresh token log", token.refresh_token);
+  ~console.log("refresh token log", token.refresh_token);
 
-  await fetch("https://accounts.spotify.com/api/token", {
+  return await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     body: `grant_type=refresh_token&refresh_token=${token.refresh_token}`,
     headers: {
@@ -42,7 +42,6 @@ async function refreshAccessToken(token: any) {
     .then((data) => {
       console.log("answer from server on refresh token", data);
       (token.access_token = data.access_token),
-        (token.refresh_token = data.refresh_token),
         (token.expires_in = Date.now() / 1000 + data.expires_in),
         console.log("after answer from server token", token);
       return token;
