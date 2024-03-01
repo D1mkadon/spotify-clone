@@ -1,10 +1,6 @@
 "use client";
-import { getSession, useSession } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
-import PlayButton from "./PlayButton";
+import { useSession } from "next-auth/react";
 import MyPlayer from "./MyPlayer";
-import Player from "./Player";
 
 const BottomBlock = () => {
   const { data: session, status } = useSession();

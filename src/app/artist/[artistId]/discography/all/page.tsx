@@ -23,7 +23,6 @@ const page = ({ params }: { params: { artistId: string } }) => {
     return <div className="flex justify-center items-center">loading</div>;
   }
   const handleClick = () => {};
-  console.log(albumsData);
   return (
     <div className="flex flex-col mt-16 mx-6 min-h-[100vh] ">
       <h2 className="text-2xl  font-bold">{albumsData[0].artists[0].name}</h2>

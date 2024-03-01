@@ -21,7 +21,7 @@ const MyPlayer = () => {
     async function f() {
       if (session?.access_token && session) {
         if (!snap.trackID.length) {
-          fetchCurrentlyPlay(setPlayback);
+          fetchCurrentlyPlay(setTrack);
           //get the currently playing song from spotify
         } else {
           //get song info
@@ -30,6 +30,8 @@ const MyPlayer = () => {
       }
     }
     f();
+    console.log("track", track);
+    console.log("playback", playback);
   }, [snap.trackID]);
   const handleClick = () => {};
   return (
@@ -88,15 +90,13 @@ const MyPlayer = () => {
           </div>
           <div className="w-full flex-row gap-2 items-center justify-between flex text-[#a7a7a7] text-[0.75rem]">
             <div className="min-w-10 text-right">
-              {/* {playback?.progress_ms
+              {playback?.progress_ms
                 ? millisToTime(playback?.progress_ms)
-                : "0:00"} */}
+                : "0:00"}
             </div>
             <div className="h-3 w-full relative"></div>
             <div className="min-w-10 text-left">
-              {/* {playback?.item.duration_ms
-                ? millisToTime(playback?.item.duration_ms)
-                : "0:00"} */}
+              {track?.duration_ms ? millisToTime(track.duration_ms) : "0:00"}
             </div>
           </div>
         </div>
