@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface cardProp {
   imgProp: string;
@@ -17,6 +18,13 @@ const MusicCard = ({
   ArtistId,
   albumType,
 }: cardProp) => {
+  const router = useRouter();
+
+  const handleClick = (e: any, id: string) => {
+    e.stopPropagation();
+    e.preventDefault();
+    router.push(`/artist/${id}`);
+  };
   return (
     <div className="p-4 rounded-lg relative bg-[#181818] cursor-pointer hover:bg-[#282828] h-full w-full transition-all duration-[0.3] ease-in-out">
       <div className="pb-[100%] relative mb-4">
@@ -36,9 +44,12 @@ const MusicCard = ({
         <div className="">
           <div className="flex justify-between MusicCardDescription">
             {ArtistProp && ArtistId && (
-              <Link href={`/artist/${ArtistId}`} className="hover:underline">
+              <div
+                onClick={(e) => handleClick(e, ArtistId)}
+                className="hover:underline"
+              >
                 {ArtistProp}
-              </Link>
+              </div>
             )}
             {descriptionProp && <p className="capitalize">{descriptionProp}</p>}
             {albumType && <p className="capitalize">{albumType}</p>}

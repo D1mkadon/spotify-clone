@@ -77,3 +77,20 @@ export interface playbackProp {
   progress_ms: number;
   item: TrackProp;
 }
+export interface playlistProp {
+  images: { url: string }[];
+  tracks: {
+    items: playlistTrackProp[];
+  };
+  name: string;
+  id: string;
+  primary_color: string;
+  description: string;
+  followers: { total: number };
+  owner: { display_name: string };
+}
+export interface playlistTrackProp {
+  added_at: string;
+  added_by: { id: string; user: string };
+  track: TrackProp;
+}

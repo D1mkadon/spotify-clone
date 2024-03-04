@@ -7,37 +7,35 @@ import millisToTime, {
   fetchSongInfo,
 } from "../../data/fetchData";
 import { TrackProp } from "@/types/types";
-import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { useSnapshot } from "valtio";
 import state from "@/store";
 import PlayBottomButton from "./PlayButton";
 
 const MyPlayer = () => {
   const snap = useSnapshot(state);
-  const { data: session } = useSession();
+
   const [track, setTrack] = useState<TrackProp>();
+  const [progress, setProgress] = useState();
   useEffect(() => {
     //fetch song details and play song
     async function f() {
+      const session = await getSession();
       if (session?.access_token && session) {
-        if (!snap.trackID.length) {
-          console.log("!snap.trackID.length", !snap.trackID.length);
-          return await fetchCurrentlyPlay(setTrack);
+        if (!state.trackID.length) {
+          return fetchCurrentlyPlay(setProgress);
 
           //get the currently playing song from spotify
         } else {
           //get song info
-          console.log("else");
-          return await fetchSongInfo(snap.trackID, setTrack);
+          return fetchSongInfo(state.trackID, setTrack);
         }
       }
     }
     f();
-    console.log("track", track);
-  }, [snap.trackID]);
+  }, [state.trackID]);
   const handleClick = () => {
     state.isPlaying = !state.isPlaying;
-    console.log(state.isPlaying);
     //pause unpause
   };
   return (
@@ -104,9 +102,7 @@ const MyPlayer = () => {
           </div>
           <div className="w-full flex-row gap-2 items-center justify-between flex text-[#a7a7a7] text-[0.75rem]">
             <div className="min-w-10 text-right">
-              {/* {playback?.progress_ms
-                ? millisToTime(playback?.progress_ms)
-                : "0:00"} */}
+              {progress ? millisToTime(progress) : "0:00"}
             </div>
             <div className="h-3 w-full relative"></div>
             <div className="min-w-10 text-left">

@@ -23,12 +23,11 @@ const PlayBottomButton = ({
       }}
       className={`flex justify-center items-center bg-[##1ed760] size-14 rounded-full hover:scale-[1.04]`}
     >
-      <Image
-        src={!state.isPlaying ? "/triangle.svg" : "/paused.svg"}
-        alt="/"
-        width={24}
-        height={24}
-      />
+      {!state.isPlaying ? (
+        <Image src={"/triangle.svg"} alt="/" width={24} height={24} />
+      ) : (
+        <Image src={"/paused.svg"} alt="/" width={16} height={16} />
+      )}
     </button>
   );
 };

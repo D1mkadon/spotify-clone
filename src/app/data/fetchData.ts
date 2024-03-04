@@ -216,7 +216,7 @@ export const fetchSongInfo = async (id: string, setState: any) => {
       setState(e.data);
     });
 };
-export const fetchCurrentlyPlay = async (setState: any) => {
+export const fetchCurrentlyPlay = async (setProgress: any) => {
   const session = await getSession();
   axios
     .get(`https://api.spotify.com/v1/me/player/currently-playing?market=ES`, {
@@ -225,10 +225,30 @@ export const fetchCurrentlyPlay = async (setState: any) => {
       },
     })
     .then((e) => {
-      setState(e.data.item);
-      console.log(e.data.item);
+      if (e.status == 204) {
+        console.log("204 response from currently playing");
+        return;
+      }
+      state.trackID = e.data.item.id;
+      setProgress(e.data.progress_ms);
       if (e.data.is_playing) {
         state.isPlaying = true;
       }
+    });
+};
+export const fetchPlaylistById = async (
+  playlist_id: string,
+  setPlaylist: any
+) => {
+  const session = await getSession();
+  axios
+    .get(`https://api.spotify.com/v1/playlists/${playlist_id}?market=ES`, {
+      headers: {
+        Authorization: "Bearer " + session?.access_token,
+      },
+    })
+    .then((e) => {
+      console.log(e.data);
+      setPlaylist(e.data);
     });
 };

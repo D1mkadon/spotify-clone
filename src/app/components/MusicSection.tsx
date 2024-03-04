@@ -7,22 +7,9 @@ import axios from "axios";
 import { albumProp, sessionProps } from "@/types/types";
 import MusicCard from "./MusicCard";
 import BrowseAllComponent from "./BrowseAllComponent";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-type Album = {
-  artists: [
-    {
-      name: string;
-      id: string;
-    }
-  ];
-  images: [
-    {
-      url: string;
-    }
-  ];
-  name: string;
-  description: string;
-};
 interface RecentlyProp {
   track: {
     id: string;
@@ -105,6 +92,7 @@ const MusicSection = () => {
         )
         .then((e) => {
           setSpotifyPlaylists(e.data.items);
+          console.log("setSpotifyPlaylists", e.data.items);
         })
         .catch((e) => {
           console.log(e);
@@ -139,12 +127,13 @@ const MusicSection = () => {
           <BrowseAllComponent title="Spotify Playlists" href="/" />
           <div className="musicSection">
             {spotifyPlaylists?.map((e: albumProp, index) => (
-              <MusicCard
-                key={index}
-                imgProp={e.images[0].url}
-                nameProp={e.name}
-                descriptionProp={e.description}
-              />
+              <Link href={`/playlist/${e.id}`} key={index}>
+                <MusicCard
+                  imgProp={e.images[0].url}
+                  nameProp={e.name}
+                  descriptionProp={e.description}
+                />
+              </Link>
             ))}
           </div>
           {playlists.length ? (
@@ -182,14 +171,15 @@ const MusicSection = () => {
             <>
               <BrowseAllComponent title=" New albums Releases" href="/" />
               <div className="musicSection">
-                {songs.map((e: Album, index) => (
-                  <MusicCard
-                    key={index}
-                    imgProp={e.images[0].url}
-                    nameProp={e.name}
-                    ArtistProp={e.artists[0].name}
-                    ArtistId={e.artists[0].id}
-                  />
+                {songs.map((e: albumProp, index) => (
+                  <Link href={`/album/${e.id}`} key={index}>
+                    <MusicCard
+                      imgProp={e.images[0].url}
+                      nameProp={e.name}
+                      ArtistProp={e.artists[0].name}
+                      ArtistId={e.artists[0].id}
+                    />
+                  </Link>
                 ))}
               </div>
             </>
