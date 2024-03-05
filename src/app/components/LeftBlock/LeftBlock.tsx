@@ -4,7 +4,7 @@ import LibraryBlock from "../LibraryBlock";
 import { LibraryData } from "../../data/libraryData";
 import { LeftFooterLinks } from "../../data/LeftFooterLinks";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   fetchFollowedArtists,
   fetchFollowedPlaylist,
@@ -15,7 +15,9 @@ import UserPlaylists from "./UserPlaylists";
 const LeftBlock = () => {
   const [followedArtists, setFollowedArtists] = useState<artistProp[]>([]);
   const [playlists, setPlaylists] = useState<playlistProp[]>([]);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [show, setShow] = useState("all");
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const f = async () => {
       fetchFollowedArtists(setFollowedArtists);
@@ -27,9 +29,19 @@ const LeftBlock = () => {
   const handleClick = (value: string) => {
     setShow(value);
   };
+  const scrollHandler = () => {
+    if (!scrollRef.current) return;
+    if (scrollRef.current.scrollTop > 60) {
+      setIsScrolled(true);
+    }
+    if (scrollRef.current.scrollTop < 60) {
+      setIsScrolled(false);
+    }
+  };
+
   return (
-    <nav className="leftSideBlock sticky top-0  ">
-      <div className="flex-[1_0_auto] flex flex-col gap-2">
+    <nav className="leftSideBlock sticky top-0">
+      <div className="flex flex-col gap-2 flex-[1_auto]">
         <div>
           <div className="flex">
             {!!followedArtists.length ||
@@ -72,9 +84,13 @@ const LeftBlock = () => {
             </li>
           </ul>
         </div>
-        <div className="flex flex-col justify-between flex-[1_0_auto] h-[77%] ">
-          <div>
-            <div className="flex justify-between py-2 px-4 items-center">
+        <div className="flex flex-col justify-between h-[77vh] flex-[1_0_auto]">
+          <div className="relative h-[70%]">
+            <div
+              className={`flex justify-between py-2 px-4 sticky items-center bg-[#121212] z-[1] top-0 ${
+                isScrolled ? "shadow-[0_6px_10px_rgba(0,0,0,.6)]" : ""
+              }  `}
+            >
               <div>
                 <button className="flex items-center gap-[12px] h-10 py-1 px-2 libraryLink">
                   <Image
@@ -89,7 +105,11 @@ const LeftBlock = () => {
               </div>
               <PlusIcon className="text-[#9BA2AE] hover:text-white plusIcon rounded-full cursor-pointer transition-all ease-in-out p-2" />
             </div>
-            <div className="flex flex-col pt-0 px-2 pb-2">
+            <div
+              ref={scrollRef}
+              onScroll={scrollHandler}
+              className="flex overflow-y-auto h-[85%] flex-[1_0_auto] flex-col pt-0 px-2 pb-2 scr"
+            >
               {!!followedArtists.length || !!playlists.length ? (
                 <UserPlaylists
                   show={show}

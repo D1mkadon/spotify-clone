@@ -39,7 +39,7 @@ const MyPlayer = () => {
     //pause unpause
   };
   return (
-    <div className="col-span-2 sticky bottom-2 flex justify-between items-center h-[57px] w-full flex-row z-[1]   bg-transparent">
+    <div className="col-span-2 sticky bottom-2 flex justify-between items-center h-[57px] w-full flex-row z-[5] bg-transparent">
       <div className="w-[30%] min-w-[180px] flex h-full items-center justify-start relative pl-2">
         {track?.album.images[0].url ? (
           <Image
