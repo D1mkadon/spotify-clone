@@ -1,5 +1,11 @@
 import state from "@/store";
-import { albumProp, artistProp, sessionProps, TrackProp } from "@/types/types";
+import {
+  albumProp,
+  artistProp,
+  playlistProp,
+  sessionProps,
+  TrackProp,
+} from "@/types/types";
 import axios from "axios";
 
 import { getSession } from "next-auth/react";
@@ -204,7 +210,10 @@ export const fetchPlaybackState = async (setState: any) => {
       setState(e.data);
     });
 };
-export const fetchSongInfo = async (id: string, setState: any) => {
+export const fetchSongInfo = async (
+  id: string,
+  setState: (value: TrackProp) => void | undefined
+) => {
   const session = await getSession();
   axios
     .get(`https://api.spotify.com/v1/tracks/${id}`, {
@@ -238,7 +247,7 @@ export const fetchCurrentlyPlay = async (setProgress: any) => {
 };
 export const fetchPlaylistById = async (
   playlist_id: string,
-  setPlaylist: any
+  setPlaylist: (value: playlistProp) => void | undefined
 ) => {
   const session = await getSession();
   axios
@@ -248,7 +257,36 @@ export const fetchPlaylistById = async (
       },
     })
     .then((e) => {
-      console.log(e.data);
       setPlaylist(e.data);
+    });
+};
+export const fetchFollowedArtists = async (
+  setFollowing: Dispatch<SetStateAction<artistProp[]>>
+) => {
+  const session = await getSession();
+  axios
+    .get("https://api.spotify.com/v1/me/following?type=artist&limit=20", {
+      headers: {
+        Authorization: "Bearer " + session?.access_token,
+      },
+    })
+    .then((e) => {
+      if (e.status === 200) {
+        setFollowing(e.data.artists.items);
+      }
+    });
+};
+export const fetchFollowedPlaylist = async (
+  setPlaylists: Dispatch<SetStateAction<playlistProp[]>>
+) => {
+  const session = await getSession();
+  axios
+    .get("https://api.spotify.com/v1/me/playlists", {
+      headers: {
+        Authorization: "Bearer " + session?.access_token,
+      },
+    })
+    .then((e) => {
+      setPlaylists(e.data.items);
     });
 };

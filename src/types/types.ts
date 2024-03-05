@@ -78,6 +78,7 @@ export interface playbackProp {
   item: TrackProp;
 }
 export interface playlistProp {
+  type?: string;
   images: { url: string }[];
   tracks: {
     items: playlistTrackProp[];

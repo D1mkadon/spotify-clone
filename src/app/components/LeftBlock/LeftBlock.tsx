@@ -1,24 +1,48 @@
 import Image from "next/image";
-import PlusIcon from "../data/Icons/plus";
-import LibraryBlock from "./LibraryBlock";
-import { LibraryData } from "../data/libraryData";
-import { LeftFooterLinks } from "../data/LeftFooterLinks";
+import PlusIcon from "../../data/Icons/plus";
+import LibraryBlock from "../LibraryBlock";
+import { LibraryData } from "../../data/libraryData";
+import { LeftFooterLinks } from "../../data/LeftFooterLinks";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import {
+  fetchFollowedArtists,
+  fetchFollowedPlaylist,
+} from "../../data/fetchData";
+import { artistProp, playlistProp } from "@/types/types";
+import UserPlaylists from "./UserPlaylists";
 
 const LeftBlock = () => {
+  const [followedArtists, setFollowedArtists] = useState<artistProp[]>([]);
+  const [playlists, setPlaylists] = useState<playlistProp[]>([]);
+  const [show, setShow] = useState("all");
+  useEffect(() => {
+    const f = async () => {
+      fetchFollowedArtists(setFollowedArtists);
+      fetchFollowedPlaylist(setPlaylists);
+    };
+    f();
+    console.log(followedArtists);
+  }, []);
+  const handleClick = (value: string) => {
+    setShow(value);
+  };
   return (
     <nav className="leftSideBlock sticky top-0  ">
       <div className="flex-[1_0_auto] flex flex-col gap-2">
         <div>
           <div className="flex">
-            <Link href="/" className=" h-[24px] mt-[20px] px-[24px]">
-              <Image
-                src={"/spotify.svg"}
-                alt="spotify Logo"
-                width={78}
-                height={24}
-              />
-            </Link>
+            {!!followedArtists.length ||
+              (!!playlists.length && (
+                <Link href="/" className=" h-[24px] mt-[20px] px-[24px]">
+                  <Image
+                    src={"/spotify.svg"}
+                    alt="spotify Logo"
+                    width={78}
+                    height={24}
+                  />
+                </Link>
+              ))}
           </div>
           <ul className="py-[8px] px-[12px]">
             <li className="h-[48px] py-[4px] px-[12px]">
@@ -65,15 +89,24 @@ const LeftBlock = () => {
               </div>
               <PlusIcon className="text-[#9BA2AE] hover:text-white plusIcon rounded-full cursor-pointer transition-all ease-in-out p-2" />
             </div>
-            <div className="flex flex-col gap-2 pt-0 px-2 pb-2">
-              {LibraryData.map((e, index) => (
-                <LibraryBlock
-                  key={index}
-                  title={e.title}
-                  description={e.description}
-                  buttonText={e.buttonText}
+            <div className="flex flex-col pt-0 px-2 pb-2">
+              {!!followedArtists.length || !!playlists.length ? (
+                <UserPlaylists
+                  show={show}
+                  playlists={playlists}
+                  handleClick={handleClick}
+                  followedArtists={followedArtists}
                 />
-              ))}
+              ) : (
+                LibraryData.map((e, index) => (
+                  <LibraryBlock
+                    key={index}
+                    title={e.title}
+                    description={e.description}
+                    buttonText={e.buttonText}
+                  />
+                ))
+              )}
             </div>
           </div>
           <div>

@@ -14,9 +14,9 @@ import PlayBottomButton from "./PlayButton";
 
 const MyPlayer = () => {
   const snap = useSnapshot(state);
-
   const [track, setTrack] = useState<TrackProp>();
   const [progress, setProgress] = useState();
+
   useEffect(() => {
     //fetch song details and play song
     async function f() {
@@ -50,29 +50,31 @@ const MyPlayer = () => {
             className="bg-blue-500 size-14 mr-2 rounded"
           />
         ) : (
-          <div className="bg-gray-500 size-14 mr-2 rounded"></div>
+          <div className="bg-gray-500/10 size-14 mr-2 rounded"></div>
         )}
-        <div className="text-white flex flex-col mx-2">
-          {track?.name && (
-            <Link
-              href=""
-              className="hover:underline line-clamp-1 cursor-pointer text-sm"
-            >
-              {track?.name}
-            </Link>
-          )}
-          {track?.artists[0].name && (
-            <Link
-              href={`/artist/${track?.artists[0].id}`}
-              className="hover:underline hover:opacity-100 opacity-70 cursor-pointer text-[12px]"
-            >
-              {track?.artists[0].name}
-            </Link>
-          )}
-        </div>
-        <span className="opacity-80 hover:opacity-100 cursor-pointer">
-          <Image src={"/heart.svg"} width={16} height={16} alt="" />
-        </span>
+        {track?.name && (
+          <>
+            <div className="text-white flex flex-col mx-2">
+              <Link
+                href=""
+                className="hover:underline line-clamp-1 cursor-pointer text-sm"
+              >
+                {track?.name}
+              </Link>
+              {track?.artists[0].name && (
+                <Link
+                  href={`/artist/${track?.artists[0].id}`}
+                  className="hover:underline hover:opacity-100 opacity-70 cursor-pointer text-[12px]"
+                >
+                  {track?.artists[0].name}
+                </Link>
+              )}
+            </div>
+            <span className="opacity-80 hover:opacity-100 cursor-pointer">
+              <Image src={"/heart.svg"} width={16} height={16} alt="" />
+            </span>
+          </>
+        )}
       </div>
       <div className="w-[40%] max-w-[722px]">
         <div className="flex flex-col justify-center items-center">
@@ -90,7 +92,6 @@ const MyPlayer = () => {
               MySize={"32px"}
               handleClick={handleClick}
             />
-
             <div className="flex gap-2 flex-[1]">
               <button className="size-8">
                 <Image src={"/next.svg"} alt="" width={16} height={16} />

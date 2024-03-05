@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import BottomBlock from "./BottomBlock/BottomBlock";
 import Footer from "./Footer_and_Header/Footer";
 import Header from "./Footer_and_Header/Header";
-import LeftBlock from "./LeftBlock";
+import LeftBlock from "./LeftBlock/LeftBlock";
 
 const MyLayout = ({ children }) => {
   const [isScrolled, setIsScrolled] = useState(false);

@@ -29,7 +29,7 @@ const ArtistHeader = ({
           <img
             src={imgUrl}
             alt=""
-            className="rounded-full max-w-[232px] size-[232px] shadow-[0_4px_60px_rgba(0,0,0,.5)]"
+            className="rounded-full max-w-[232px] size-[232px] shadow-[0_4px_60px_rgba(0,0,0,.5)] object-cover"
           />
         </div>
         <div className="flex flex-col">

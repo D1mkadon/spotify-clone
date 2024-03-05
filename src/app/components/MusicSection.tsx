@@ -92,7 +92,6 @@ const MusicSection = () => {
         )
         .then((e) => {
           setSpotifyPlaylists(e.data.items);
-          console.log("setSpotifyPlaylists", e.data.items);
         })
         .catch((e) => {
           console.log(e);
@@ -142,12 +141,14 @@ const MusicSection = () => {
 
               <div className="musicSection">
                 {playlists?.map((e: albumProp, index) => (
-                  <MusicCard
-                    key={index}
-                    imgProp={e.images[0].url}
-                    nameProp={e.name}
-                    descriptionProp={e.description}
-                  />
+                  <Link href={`/playlist/${e.id}`} key={index}>
+                    <MusicCard
+                      key={index}
+                      imgProp={e.images[0].url}
+                      nameProp={e.name}
+                      descriptionProp={e.description}
+                    />
+                  </Link>
                 ))}
               </div>
             </>

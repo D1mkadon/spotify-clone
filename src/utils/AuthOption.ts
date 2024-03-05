@@ -13,6 +13,7 @@ const scopes = [
   "user-library-read",
   "user-library-modify",
   "user-read-recently-played",
+  "user-follow-read",
 ].join(",");
 
 const params = {

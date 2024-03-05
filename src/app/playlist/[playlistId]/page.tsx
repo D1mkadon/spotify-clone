@@ -1,15 +1,10 @@
 "use client";
 
-import BrowseAllComponent from "@/app/components/BrowseAllComponent";
-import MusicCard from "@/app/components/MusicCard";
 import PlayButton from "@/app/components/PlayButton";
-import PlaylistComponent from "@/app/components/PlaylistComponent";
-import {
-  fetchPlaylistById,
-  millisToHoursAndMinutes,
-} from "@/app/data/fetchData";
-import { albumProp, playlistProp } from "@/types/types";
-import Link from "next/link";
+
+import { fetchPlaylistById } from "@/app/data/fetchData";
+import { playlistProp } from "@/types/types";
+
 import React, { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import state from "@/store/index";

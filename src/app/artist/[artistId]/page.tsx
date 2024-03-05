@@ -1,7 +1,6 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ArtistHeader from "./artistHeader";
 import TopTracks from "./topTracks";
 import { getColorByGenre } from "@/app/data/cardsData";
@@ -60,11 +59,13 @@ const page = ({ params }: { params: { artistId: string } }) => {
       );
     });
   };
-  if (!artist?.name) {
-    return <p>loading...</p>;
-  }
+  // if (!artist?.name) {
+  //   return (
+  //     <p className="flex justify-center items-center text-center">loading...</p>
+  //   );
+  // }
   return (
-    <>
+    <div className="flex flex-col">
       <div className="relative mt-16">
         <div
           style={{
@@ -155,7 +156,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
