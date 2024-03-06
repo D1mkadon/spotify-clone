@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Spotify clone that i made using typescript.
+Project using spotify WEB API
+https://developer.spotify.com/documentation/web-api
 
-## Getting Started
+As soon as you logged in you can see your playlists and followed artists
 
-First, run the development server:
+![library](https://github.com/D1mkadon/spotify-clone/assets/97811992/31188142-b76c-40fa-9722-d1a56f3b2115)
+There is also not presented player, search page with categories, and playlists by categories, install page, artist -> appears on page
+Default home page
+![image](https://github.com/D1mkadon/spotify-clone/assets/97811992/3399858c-b14b-478c-a291-fd4c17e85e09)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Artist page information about their top tracks, their albums, related artists
+![image](https://github.com/D1mkadon/spotify-clone/assets/97811992/e822e70f-b556-4d67-a273-09328bc7d57d)
+Page all artist albums and tracks included
+![image](https://github.com/D1mkadon/spotify-clone/assets/97811992/b6642962-2035-402c-9980-58c1b9ecc876)
+If you want to see more related artists - page show all related artists
+![image](https://github.com/D1mkadon/spotify-clone/assets/97811992/8bd46e97-a496-443e-b0c4-2bf9b8ca5e37)
+Album page
+![image](https://github.com/D1mkadon/spotify-clone/assets/97811992/84409ad9-de2c-4756-bbf3-ba9660b95f2b)
+Playlist page
+![image](https://github.com/D1mkadon/spotify-clone/assets/97811992/4fbc537e-ba37-42e0-825d-8c8aa11d4879)
