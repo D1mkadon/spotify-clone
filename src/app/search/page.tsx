@@ -6,6 +6,7 @@ import { getSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import BrowseAllComponent from "../components/BrowseAllComponent";
 
 function generateMidtoneColor() {
   while (true) {
@@ -75,29 +76,32 @@ const Search = () => {
   }
   if (status === "authenticated") {
     return (
-      <div className={`grid gap-6 categoriesContainer relative px-6 mt-16`}>
-        {categories.map((e: MyType, index) => (
-          <Link
-            href={`/category/${e.id}`}
-            className="rounded-lg overflow-hidden relative p-4 "
-            style={{ backgroundColor: `${generateMidtoneColor()}` }}
-            key={index}
-          >
-            <div className="after:block after:pb-[100%]">
-              <Image
-                className="categoryImg"
-                src={e.icons[0].url}
-                alt="/"
-                height={100}
-                width={100}
-              />
-              <p className="text-2xl font-bold max-w-full absolute categoryText">
-                {e.name}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
+      <>
+        <h2 className="font-bold text-[22px] mt-20 px-6">Browse All</h2>
+        <div className={`grid gap-6 categoriesContainer relative px-6 mt-4`}>
+          {categories.map((e: MyType, index) => (
+            <Link
+              href={`/category/${e.id}`}
+              className="rounded-lg overflow-hidden relative p-4 "
+              style={{ backgroundColor: `${generateMidtoneColor()}` }}
+              key={index}
+            >
+              <div className="after:block after:pb-[100%]">
+                <Image
+                  className="categoryImg"
+                  src={e.icons[0].url}
+                  alt="/"
+                  height={100}
+                  width={100}
+                />
+                <p className="text-2xl font-bold max-w-full absolute categoryText">
+                  {e.name}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </>
     );
   }
   return <div>You have to log in first.</div>;

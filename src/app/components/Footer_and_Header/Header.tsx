@@ -3,6 +3,7 @@ import LeftArrow from "../../data/Icons/leftArrow";
 import RightArrow from "../../data/Icons/rightArrow";
 import Login from "@/app/data/Login";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 interface isVisibleProp {
   isScrolled: Boolean;
 }
@@ -33,7 +34,7 @@ const Header = ({ isScrolled }: isVisibleProp) => {
   };
   return (
     <header
-      className={`box-border h-16 sticky left-0 top-0 flex w-full items-center gap-2 justify-between py-4 px-6 z-[2] transition-[background-color] ease-in-out duration-300 ${
+      className={`box-border min-h-16 sticky left-0 top-0 flex w-full items-center gap-2 justify-between py-4 px-6 z-[2] transition-[background-color] ease-in-out duration-300 ${
         isScrolled ? "bg-[#121212]" : "bg-transparent"
       }  `}
     >
@@ -56,6 +57,19 @@ const Header = ({ isScrolled }: isVisibleProp) => {
         >
           <RightArrow className={"text-[#fff]"} />
         </button>
+        {path === "/search" && (
+          <div className="relative flex items-center justify-start">
+            <label className="absolute left-2" htmlFor="search">
+              <Image src={"/search.svg"} alt="" width={16} height={16} />
+            </label>
+            <input
+              id="search"
+              type="text"
+              placeholder="What do you want to play"
+              className="bg-white/10  pl-7 pr-2 py-2 rounded-full outline-0 border-2"
+            ></input>
+          </div>
+        )}
       </div>
 
       <div className="flex items-center font-bold">
