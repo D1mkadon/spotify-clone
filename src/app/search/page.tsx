@@ -1,12 +1,11 @@
 "use client";
-import { sessionProps } from "@/types/types";
+
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { getSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import BrowseAllComponent from "../components/BrowseAllComponent";
 
 function generateMidtoneColor() {
   while (true) {
@@ -56,7 +55,6 @@ const Search = () => {
     setLoading(true);
     const fetchData = async () => {
       const session = await getSession();
-
       await axios
         .get("https://api.spotify.com/v1/browse/categories?limit=30", {
           headers: {
@@ -65,14 +63,17 @@ const Search = () => {
         })
         .then((e) => {
           setCategories(e.data.categories.items), setLoading(false);
-          console.log(e.data);
         })
         .catch((e) => console.log("catched ", e));
     };
     fetchData();
   }, []);
   if (status === "loading" || loading) {
-    return <p>Loading...</p>;
+    return (
+      <p className="min-h-[60vh]">
+        <span className="mt-16">Loading...</span>
+      </p>
+    );
   }
   if (status === "authenticated") {
     return (

@@ -95,3 +95,8 @@ export interface playlistTrackProp {
   added_by: { id: string; user: string };
   track: TrackProp;
 }
+export interface searchDataProp {
+  albums: { items: albumProp[] };
+  artists: { items: artistProp[] };
+  tracks: { items: TrackProp[] };
+}

@@ -24,7 +24,6 @@ const LeftBlock = () => {
       fetchFollowedPlaylist(setPlaylists);
     };
     f();
-    console.log(followedArtists);
   }, []);
   const handleClick = (value: string) => {
     setShow(value);
