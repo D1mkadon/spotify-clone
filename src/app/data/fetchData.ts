@@ -292,7 +292,7 @@ export const fetchFollowedPlaylist = async (
 };
 export const fetchSearch = async (q: string,setState:any) => {
   const session = await getSession();
-  axios.get(`https://api.spotify.com/v1/search?q=${q}&type=album%2Cartist%2Ctrack`, {
+  axios.get(`https://api.spotify.com/v1/search?q=${q}&market=ES&type=album%2Cartist%2Ctrack`, {
     headers: {
       Authorization: "Bearer " + session?.access_token,
     },
