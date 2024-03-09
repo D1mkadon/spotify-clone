@@ -38,20 +38,22 @@ const MusicCard = ({
         />
       </div>
       <div className="max-w-full min-h-[62px]">
-        <p className="inline-block max-w-full pb-1 text-base font-bold overflow-hidden text-ellipsis whitespace-nowrap h-[26px]">
+        <p className="inline-block max-w-full pb-1 text-base overflow-hidden text-ellipsis whitespace-nowrap h-[26px]">
           {nameProp}
         </p>
-        <div className="">
-          <div className="flex justify-between MusicCardDescription">
+        <div>
+          <div className="justify-between MusicCardDescription">
+            {descriptionProp && (
+              <span className="capitalize">{descriptionProp}</span>
+            )}
             {ArtistProp && ArtistId && (
-              <div
+              <button
                 onClick={(e) => handleClick(e, ArtistId)}
                 className="hover:underline"
               >
                 {ArtistProp}
-              </div>
+              </button>
             )}
-            {descriptionProp && <p className="capitalize">{descriptionProp}</p>}
             {albumType && <p className="capitalize">{albumType}</p>}
           </div>
         </div>

@@ -74,7 +74,11 @@ const page = ({ params }: { params: { albumId: string } }) => {
     fetchAlbumById(params.albumId, setAlbum, setAlbumDuration, setMoreAlbums);
   }, []);
   if (!album.name.length) {
-    return <p>loading</p>;
+    return (
+      <p className="min-h-[60vh] flex justify-center items-center">
+        <span className="mt-16">Loading...</span>
+      </p>
+    );
   }
   const handleClick = async () => {
     state.trackID = album.tracks.items[0].id;

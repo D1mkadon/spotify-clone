@@ -59,11 +59,7 @@ const page = ({ params }: { params: { artistId: string } }) => {
       );
     });
   };
-  // if (!artist?.name) {
-  //   return (
-  //     <p className="flex justify-center items-center text-center">loading...</p>
-  //   );
-  // }
+
   return (
     <div className="flex flex-col">
       <div className="relative mt-16">

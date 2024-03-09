@@ -95,8 +95,24 @@ export interface playlistTrackProp {
   added_by: { id: string; user: string };
   track: TrackProp;
 }
+export interface showProp {
+  description: string;
+  explicit: Boolean;
+
+  href: string;
+  id: string;
+  images: { url: string }[];
+
+  name: string;
+  publisher: string;
+  total_episodes: number;
+  type: string;
+  uri: string;
+}
 export interface searchDataProp {
   albums: { items: albumProp[] };
   artists: { items: artistProp[] };
   tracks: { items: TrackProp[] };
+  playlists: { items: playlistProp[] };
+  shows: { items: showProp[] };
 }

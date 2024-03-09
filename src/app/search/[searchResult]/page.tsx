@@ -6,6 +6,7 @@ import { searchDataProp } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import ArtistCard from "./ArtistCard";
 
 const page = ({ params }: { params: { searchResult: string } }) => {
   const [searchData, setSearchData] = useState<searchDataProp>();
@@ -60,7 +61,7 @@ const page = ({ params }: { params: { searchResult: string } }) => {
             </div>
           </div>
         </div>
-        <div className=" col-span-3">
+        <div className="col-[3/_-1]">
           <h2 className="text-2xl font-bold capitalize">songs</h2>
           <div className="flex flex-col">
             {searchData.tracks.items.slice(0, 4).map((e, index: number) => (
@@ -109,18 +110,78 @@ const page = ({ params }: { params: { searchResult: string } }) => {
             ))}
           </div>
         </div>
-        <div className=" col-span-full">
-          <h2 className="text-2xl font-bold">Top result</h2>
-          <div className="musicSection">
+        <section className=" col-span-full">
+          <h2 className="text-2xl font-bold">Artists</h2>
+          <div className="musicSection" style={{ columnGap: 0 }}>
             {searchData.artists.items.slice(0, 12).map((e, index) => (
-              <MusicCard
-                key={index}
-                imgProp={e.images[0].url}
-                nameProp={e.name}
-              />
+              <Link href={`/artist/${e.id}`} key={index}>
+                <ArtistCard
+                  imgProp={e.images[0].url}
+                  nameProp={e.name}
+                  TypeProp={e.type}
+                />
+              </Link>
             ))}
           </div>
-        </div>
+        </section>
+        <section className=" col-span-full">
+          <h2 className="text-2xl font-bold">Albums</h2>
+          <div className="musicSection">
+            {searchData.albums.items.slice(0, 12).map((e, index) => (
+              <Link href={`/album/${e.id}`} key={index}>
+                <MusicCard
+                  imgProp={e.images[0].url}
+                  nameProp={e.name}
+                  descriptionProp={`${e.release_date.slice(0, 4)} • `}
+                  ArtistProp={`${e.artists[0].name}`}
+                  ArtistId={e.artists[0].id}
+                />
+              </Link>
+            ))}
+          </div>
+        </section>
+        <section className="col-span-full">
+          <h2 className="text-2xl font-bold">Playlists</h2>
+          <div className="musicSection">
+            {searchData.playlists.items.slice(0, 12).map((e, index) => (
+              <Link href={`/playlist/${e.id}`} key={index}>
+                <MusicCard
+                  imgProp={e.images[0].url}
+                  nameProp={e.name}
+                  descriptionProp={`By ${e.owner.display_name}`}
+                />
+              </Link>
+            ))}
+          </div>
+        </section>
+        <section className="col-span-full">
+          <h2 className="text-2xl font-bold">Podcasts</h2>
+          <div className="musicSection">
+            {searchData.shows.items.slice(0, 12).map((e, index) => (
+              <Link href={`/show/${e.id}`} key={index}>
+                <MusicCard
+                  imgProp={e.images[0].url}
+                  nameProp={e.name}
+                  descriptionProp={`${e.publisher}`}
+                />
+              </Link>
+            ))}
+          </div>
+        </section>
+        <section className=" col-span-full">
+          <h2 className="text-2xl font-bold">Profiles</h2>
+          <div className="musicSection" style={{ columnGap: 0 }}>
+            {searchData.artists.items.slice(0, 12).map((e, index) => (
+              <Link href={`/user/${e.id}`} key={index}>
+                <ArtistCard
+                  imgProp={e.images[0].url}
+                  nameProp={e.name}
+                  TypeProp={e.type}
+                />
+              </Link>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

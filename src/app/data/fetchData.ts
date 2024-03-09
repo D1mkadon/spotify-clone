@@ -290,13 +290,18 @@ export const fetchFollowedPlaylist = async (
       setPlaylists(e.data.items);
     });
 };
-export const fetchSearch = async (q: string,setState:any) => {
+export const fetchSearch = async (q: string, setState: any) => {
   const session = await getSession();
-  axios.get(`https://api.spotify.com/v1/search?q=${q}&market=ES&type=album%2Cartist%2Ctrack`, {
-    headers: {
-      Authorization: "Bearer " + session?.access_token,
-    },
-  }).then((e)=>{
-    setState(e.data)
-  })
+  axios
+    .get(
+      `https://api.spotify.com/v1/search?q=${q}&market=ES&type=album%2Cartist%2Ctrack%2Cplaylist%2Cshow%2Cepisode`,
+      {
+        headers: {
+          Authorization: "Bearer " + session?.access_token,
+        },
+      }
+    )
+    .then((e) => {
+      setState(e.data);
+    });
 };
