@@ -43,7 +43,7 @@ export type TrackProp = {
   duration_ms: number;
   track_number: number;
   id: string;
-  album: { images: { url: string }[] };
+  album: { name?: string; images: { url: string }[] };
   artists: { id: string; name: string }[];
   uri: string;
 };
@@ -102,7 +102,16 @@ export interface showProp {
   href: string;
   id: string;
   images: { url: string }[];
-
+  episodes: {
+    items: {
+      name: string;
+      release_date: string;
+      description: string;
+      duration_ms: number;
+      images: { url: string }[];
+      id: string;
+    }[];
+  };
   name: string;
   publisher: string;
   total_episodes: number;
@@ -115,4 +124,8 @@ export interface searchDataProp {
   tracks: { items: TrackProp[] };
   playlists: { items: playlistProp[] };
   shows: { items: showProp[] };
+}
+export interface likedProp {
+  total: string;
+  items: { added_at: string; track: TrackProp }[];
 }

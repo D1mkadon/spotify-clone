@@ -305,3 +305,27 @@ export const fetchSearch = async (q: string, setState: any) => {
       setState(e.data);
     });
 };
+export const fetchLiked = async (setState: any) => {
+  const session = await getSession();
+  axios
+    .get(`https://api.spotify.com/v1/me/tracks?market=ES`, {
+      headers: {
+        Authorization: "Bearer " + session?.access_token,
+      },
+    })
+    .then((e) => {
+      setState(e.data);
+    });
+};
+export const fetchShows = async (id: string, setState: any) => {
+  const session = await getSession();
+  axios
+    .get(`https://api.spotify.com/v1/shows/${id}?market=ES`, {
+      headers: {
+        Authorization: "Bearer " + session?.access_token,
+      },
+    })
+    .then((e) => {
+      setState(e.data);
+    });
+};

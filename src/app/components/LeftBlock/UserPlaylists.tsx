@@ -2,18 +2,20 @@ import Image from "next/image";
 import React from "react";
 import AlbumSwitcherButton from "../../artist/[artistId]/albumSwitcherButton";
 import Link from "next/link";
-import { artistProp, playlistProp } from "@/types/types";
+import { TrackProp, artistProp, likedProp, playlistProp } from "@/types/types";
 
 const UserPlaylists = ({
   show,
   handleClick,
   playlists,
   followedArtists,
+  liked,
 }: {
   show: string;
   handleClick: (value: string) => void;
   playlists: playlistProp[];
   followedArtists: artistProp[];
+  liked: likedProp;
 }) => {
   const handleSearchClick = () => {};
   return (
@@ -76,6 +78,30 @@ const UserPlaylists = ({
         </button>
       </div>
       <div>
+        {liked.items.length > 1 && (
+          <Link
+            href={`/collection/tracks`}
+            className="flex items-center flex-row gap-3 h-16 cursor-pointer hover:bg-white/5 px-2 rounded"
+          >
+            <Image
+              src={"https://misc.scdn.co/liked-songs/liked-songs-64.png"}
+              alt={`liked icon`}
+              width={48}
+              height={48}
+              className="object-fit size-12 rounded"
+            />
+            <div className="flex flex-col">
+              <p className="text-base">Liked Songs</p>
+              <span className="text-[#a7a7a7] text-[0.875rem] capitalize">
+                <span className="">Playlist</span> {" • "}
+                <span>
+                  {liked.items.length}{" "}
+                  {liked.items.length > 1 ? "songs" : "song"}
+                </span>
+              </span>
+            </div>
+          </Link>
+        )}
         {(show === "all" || show === "Playlists") &&
           !!playlists.length &&
           playlists.map((e, index: number) => (
