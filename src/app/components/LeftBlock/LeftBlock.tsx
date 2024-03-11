@@ -10,7 +10,7 @@ import {
   fetchFollowedPlaylist,
   fetchLiked,
 } from "../../data/fetchData";
-import {  artistProp, likedProp, playlistProp } from "@/types/types";
+import { artistProp, likedProp, playlistProp } from "@/types/types";
 import UserPlaylists from "./UserPlaylists";
 
 const LeftBlock = () => {
@@ -19,6 +19,8 @@ const LeftBlock = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [show, setShow] = useState("all");
   const [liked, setLiked] = useState<likedProp>({ items: [], total: "" });
+
+
   const scrollRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const f = async () => {
@@ -40,6 +42,7 @@ const LeftBlock = () => {
       setIsScrolled(false);
     }
   };
+
 
   return (
     <nav className="leftSideBlock sticky top-0">
@@ -110,8 +113,7 @@ const LeftBlock = () => {
             <div
               ref={scrollRef}
               onScroll={scrollHandler}
-              className="flex overflow-y-auto h-[85%] flex-[1_0_auto] flex-col pt-0 px-2 pb-2 scr"
-            >
+              className="flex overflow-y-auto h-[85%] flex-[1_0_auto] flex-col pt-0 px-2 pb-2 scr">
               {!!followedArtists.length ||
               !!playlists.length ||
               !!liked.total ? (
@@ -121,6 +123,7 @@ const LeftBlock = () => {
                   handleClick={handleClick}
                   liked={liked}
                   followedArtists={followedArtists}
+             
                 />
               ) : (
                 LibraryData.map((e, index) => (
