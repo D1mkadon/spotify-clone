@@ -47,10 +47,10 @@ const MyPlayer = () => {
             alt=""
             width={56}
             height={56}
-            className="bg-blue-500 size-14 mr-2 rounded"
+            className="bg-gray-500/10 size-14 mr-2 rounded"
           />
         ) : (
-          <div className="bg-gray-500/10 size-14 mr-2 rounded"></div>
+          <div className=" size-14 mr-2 rounded"></div>
         )}
         {track?.name && (
           <>

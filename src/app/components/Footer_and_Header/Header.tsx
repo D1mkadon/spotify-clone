@@ -34,7 +34,6 @@ const Header = ({ isScrolled }: { isScrolled: Boolean }) => {
     }
   };
 
-
   return (
     <header
       className={`box-border min-h-16 sticky left-0 top-0 flex w-full items-center gap-2 justify-between py-4 px-6 z-[2] transition-[background-color] ease-in-out duration-300 ${
@@ -62,7 +61,7 @@ const Header = ({ isScrolled }: { isScrolled: Boolean }) => {
         </button>
         {(path === "/search" ||
           path === `/search/${searchParams.searchResult}`) && (
-          <SearchComponent  />
+          <SearchComponent />
         )}
       </div>
 

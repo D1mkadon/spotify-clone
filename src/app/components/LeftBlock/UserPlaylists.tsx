@@ -82,7 +82,7 @@ const UserPlaylists = ({
             className="opacity-60 cursor-pointer size-4 group-hover:opacity-[1] z-[1]"
           />
         </button>
-        <div className="flex items-center">
+        <div className="flex items-center h-10 rel">
           <input
             ref={dropDownContent}
             type="text"
