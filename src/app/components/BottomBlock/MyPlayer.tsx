@@ -112,7 +112,11 @@ const MyPlayer = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end items-center flex-grow-[1]">1</div>
+      <div className="flex justify-end items-center flex-grow-[1]">
+        <div>
+          <p><Image src={'/queue.svg'} alt="" width={16} height={16}/></p>
+        </div>
+      </div>
     </div>
   );
 };
