@@ -14,7 +14,7 @@ const TopTracks = ({ topTracks }: any) => {
     state.isPlaying = true;
     if (session && session.access_token) {
       const response = await fetch(
-        "https://api.spotify.com/v1/me/player/play",
+        `https://api.spotify.com/v1/me/player/play?device_id=${state.device}`,
         {
           method: "PUT",
           headers: {

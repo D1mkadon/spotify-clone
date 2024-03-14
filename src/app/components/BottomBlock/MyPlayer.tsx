@@ -4,23 +4,33 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import millisToTime, {
   fetchCurrentlyPlay,
+  fetchNext,
+  fetchPrevious,
   fetchSongInfo,
 } from "../../data/fetchData";
 import { TrackProp } from "@/types/types";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useSnapshot } from "valtio";
 import state from "@/store";
 import PlayBottomButton from "./PlayButton";
+import axios from "axios";
 
 const MyPlayer = () => {
   const snap = useSnapshot(state);
   const [track, setTrack] = useState<TrackProp>();
   const [progress, setProgress] = useState();
-
+  const { data: session } = useSession();
   useEffect(() => {
     //fetch song details and play song
     async function f() {
       const session = await getSession();
+      axios
+        .get("https://api.spotify.com/v1/me/player/devices", {
+          headers: {
+            Authorization: "Bearer " + session?.access_token,
+          },
+        })
+        .then((e) => (state.device = e.data.devices[0].id));
       if (session?.access_token && session) {
         if (!state.trackID.length) {
           return fetchCurrentlyPlay(setProgress);
@@ -34,10 +44,59 @@ const MyPlayer = () => {
     }
     f();
   }, [state.trackID]);
-  const handleClick = () => {
-    state.isPlaying = !state.isPlaying;
+  const handleClick = async () => {
+    const data = await axios.get(
+      `https://api.spotify.com/v1/me/player/currently-playing?market=ES`,
+      {
+        headers: {
+          Authorization: "Bearer " + session?.access_token,
+        },
+      }
+    );
+    if (data.data.is_playing) {
+      const response = await axios.put(
+        "https://api.spotify.com/v1/me/player/pause",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + session?.access_token,
+          },
+        }
+      );
+      if (response.status === 204) {
+        state.isPlaying = false;
+      }
+    } else {
+      console.log(data);
+
+      const response = await fetch(
+        `https://api.spotify.com/v1/me/player/play?device_id=${state.device}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${session?.access_token}`,
+          },
+          body: JSON.stringify({
+            uris: [track?.uri],
+            position_ms: data.data.progress_ms,
+          }),
+        }
+      );
+      if (response.status === 204) {
+        state.isPlaying = true;
+        state.trackID = data.data.item.id;
+      }
+    }
+
     //pause unpause
   };
+  const handleNext = async () => {
+    fetchNext();
+  };
+  const handlePrevious = async () => {
+    fetchPrevious();
+  };
+
   return (
     <div className="col-span-2 sticky bottom-2 flex justify-between items-center h-[57px] w-full flex-row z-[5] bg-transparent">
       <div className="w-[30%] min-w-[180px] flex h-full items-center justify-start relative pl-2">
@@ -83,7 +142,10 @@ const MyPlayer = () => {
               <button className="size-8">
                 <Image src={"/shuffle.svg"} alt="" width={16} height={16} />
               </button>
-              <button className="size-8">
+              <button
+                className="size-8 opacity-80 hover:opacity-100"
+                onClick={handlePrevious}
+              >
                 <Image src={"/previous.svg"} alt="" width={16} height={16} />
               </button>
             </div>
@@ -93,7 +155,10 @@ const MyPlayer = () => {
               handleClick={handleClick}
             />
             <div className="flex gap-2 flex-[1]">
-              <button className="size-8">
+              <button
+                className="size-8 opacity-80 hover:opacity-100"
+                onClick={handleNext}
+              >
                 <Image src={"/next.svg"} alt="" width={16} height={16} />
               </button>
               <button className="size-8">
@@ -112,10 +177,10 @@ const MyPlayer = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end items-center flex-grow-[1]">
-        <div>
-          <p><Image src={'/queue.svg'} alt="" width={16} height={16}/></p>
-        </div>
+      <div className="flex justify-end items-center flex-grow-[1] ">
+        <p className=" opacity-80 hover:opacity-100 size-8 p-2 cursor-pointer">
+          <Image src={"/queue.svg"} alt="" width={16} height={16} />
+        </p>
       </div>
     </div>
   );

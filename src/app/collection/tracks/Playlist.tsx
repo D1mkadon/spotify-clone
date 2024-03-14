@@ -5,16 +5,34 @@ import { TrackProp } from "@/types/types";
 import Triangle from "@/app/data/Icons/triangle";
 import state from "@/store";
 import { useSnapshot } from "valtio";
+import { useSession } from "next-auth/react";
 
 const PlaylistComponent = ({
   arrProp,
 }: {
   arrProp: Array<{ added_at: string; track: TrackProp }>;
 }) => {
+  const { data: session } = useSession();
   const snap = useSnapshot(state);
-  const handleClick = (value: TrackProp) => {
-    state.trackID = value.id;
+  const handleClick = async (e: TrackProp) => {
+    state.trackID = e.id;
     state.isPlaying = true;
+    if (session && session.access_token) {
+      const response = await fetch(
+        `https://api.spotify.com/v1/me/player/play?device_id=${state.device}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({
+            uris: [e.uri],
+          }),
+        }
+      );
+      console.log("e.uri", e.uri);
+      console.log("on play", response.status);
+    }
   };
   return (
     <div className="px-8 text-[#b3b3b3]">

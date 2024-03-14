@@ -329,3 +329,29 @@ export const fetchShows = async (id: string, setState: any) => {
       setState(e.data);
     });
 };
+export const fetchNext = async () => {
+  const session = await getSession();
+
+  axios.post(
+    "https://api.spotify.com/v1/me/player/next",
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + session?.access_token,
+      },
+    }
+  );
+};
+export const fetchPrevious = async () => {
+  const session = await getSession();
+
+  axios.post(
+    "https://api.spotify.com/v1/me/player/previous",
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + session?.access_token,
+      },
+    }
+  );
+};
